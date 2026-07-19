@@ -435,14 +435,15 @@
       snapshots: []
     };
 
-    const $ = (id) => document.getElementById(id);
-
-    function todayStr() {
-      const d = new Date();
-      const m = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
-      return `${d.getFullYear()}-${m}-${day}`;
-    }
+    const $ = (id) => document.getElementById('multiplierRow').addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  
+  const mult = btn.dataset.multiplier;
+  
+  // Directly trigger a dart throw using the segment value
+  throwDart(0, mult, false); 
+});
 
     function clone(obj) {
       return JSON.parse(JSON.stringify(obj));
@@ -710,7 +711,7 @@
           </div>
           <div class="final-box">
             <div class="eyebrow">Game Summary</div>
-            <p class="muted">NBA style scoring: Bull=6, Double=5, Triple=4, Inner Single=2, Outer Single=3, Miss=0.</p>
+            <p class="muted">HBA style scoring: Bull=6, Double=5, Triple=4, Inner Single=2, Outer Single=3, Miss=0.</p>
           </div>
         </div>
         <div class="final-box" style="margin-top:18px;">
