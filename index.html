@@ -1133,6 +1133,19 @@
     if (state.activeGame) state.snapshots = [clone(state.activeGame)];
     renderAll();
     initReveal();
+    document.addEventListener('DOMContentLoaded', () => {
+  const row = document.getElementById('multiplierRow');
+  if (row) {
+    row.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      
+      const mult = btn.dataset.multiplier;
+      // Directly trigger a dart throw using the segment value
+      throwDart(0, mult, mult === 'miss');
+    });
+  }
+});
   </script>
 </body>
 </html>
