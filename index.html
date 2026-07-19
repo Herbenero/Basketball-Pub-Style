@@ -658,8 +658,7 @@
         // This implementation keeps per-round data linear; we will approximate best round by searching p.pointsPerRound
         // for the highest value (no strict partitioning required here).
         const bestRound = p.pointsPerRound.length ? Math.max(...p.pointsPerRound) : 0;
-        const weighted = totalQ * 0.7 + bestRound * 0.3;
-        return { name: p.name, weighted, totalQ, bestRound };
+               return { name: p.name, totalQ, bestRound };
       });
 
       players.sort((a, b) => b.weighted - a.weighted);
@@ -671,8 +670,7 @@
         <p><strong>${escapeHtml(mvp.name)}</strong> is the MVP of Quarter ${quarter}!</p>
         <p>Total Points: ${mvp.totalQ}</p>
         <p>Best Round: ${mvp.bestRound}</p>
-        <p>Weighted Score: ${mvp.weighted.toFixed(2)}</p>
-      `;
+              `;
       openModal(modal);
     }
 
