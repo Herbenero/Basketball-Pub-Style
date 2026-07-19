@@ -1,304 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Basketball Darts - Pub Style</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Basketball Darts</title>
+  <meta name="description" content="Basketball Darts webapp with NBA style scoring, quarters, possessions, scoreboard, leaderboard, history calendar, local storage, and final scoreboard." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-color: #111827;
-      --background-body: #111827;
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --links: #3b82f6;
-      --focus: #2563eb;
-      --form-placeholder: #4b5563;
-      --button-base: #1f2937;
-      --button-hover: #374151;
-      --animation-duration: 0.2s;
+      --bg: #0b1a2a;
+      --panel: rgba(15, 30, 50, 0.85);
+      --line: rgba(255, 255, 255, 0.12);
+      --text: #e6f0fa;
+      --muted: #a0b4d1;
+      --accent: #f5a623;
+      --accent-2: #7ec8e3;
+      --green: #5ac878;
+      --red: #ef5d5d;
+      --gold: #f0c96a;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max: 1400px;
     }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background-color: var(--bg-color);
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-      border-bottom: 1px solid #374151;
-      padding-bottom: 20px;
-    }
-    .header-titles h1 {
       margin: 0;
-      font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -0.05em;
-      background: linear-gradient(to right, #f97316, #ef4444);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(245, 166, 35, 0.15), transparent 28%),
+        radial-gradient(circle at top right, rgba(126, 200, 227, 0.14), transparent 22%),
+        linear-gradient(180deg, #071523 0%, #0a1a2a 100%);
+      color: var(--text);
+      min-height: 100vh;
     }
-    .eyebrow {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-muted);
-      margin: 0 0 4px 0;
-    }
-    .panel {
-      background: #1f2937;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
-      border: 1px solid #374151;
-    }
-    .hidden { display: none !important; }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-    .section-title {
-      margin-top: 0;
-      margin-bottom: 16px;
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-    .form-group {
-      margin-bottom: 16px;
-    }
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      background: #111827;
-      border: 1px solid #4b5563;
-      border-radius: 6px;
-      color: white;
-      box-sizing: border-box;
-    }
-    .btn {
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: background var(--animation-duration);
-    }
-    .btn.primary { background: #f97316; color: white; }
-    .btn.primary:hover { background: #ea580c; }
-    .btn.secondary { background: #4b5563; color: white; }
-    .btn.secondary:hover { background: #374151; }
-    .btn.warn { background: #dc2626; color: white; }
-    .btn.warn:hover { background: #b91c1c; }
-    .btn.ghost { background: transparent; border: 1px solid #4b5563; color: var(--text-main); }
-    .btn.ghost:hover { background: #27272a; }
-    
-    .player-setup-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-end;
-      margin-bottom: 12px;
-    }
-    .player-list-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #111827;
-      padding: 8px 12px;
-      border-radius: 6px;
-      margin-bottom: 8px;
-    }
-    
-    .game-layout {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 24px;
-    }
-    @media (max-width: 800px) {
-      .game-layout { grid-template-columns: 1fr; }
-    }
-    
-    .scoreboard-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .scoreboard-table th, .scoreboard-table td {
-      padding: 12px;
-      text-align: center;
-      border-bottom: 1px solid #374151;
-    }
-    .scoreboard-table th { background: #111827; color: var(--text-muted); }
-    .scoreboard-table tr.active-row td { background: rgba(249, 115, 22, 0.1); border-left: 4px solid #f97316; }
-    
-    .quarter-box {
-      display: inline-block;
-      padding: 2px 6px;
-      background: #374151;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
-    .possession-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      background: #f97316;
-      border-radius: 50%;
-      margin-left: 6px;
-    }
-    
-    .selection {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .multiplier-row, .action-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .pill-btn {
-      flex: 1;
-      min-width: 70px;
-      padding: 12px 8px;
-      background: #111827;
-      border: 1px solid #4b5563;
-      color: white;
-      border-radius: 20px;
-      cursor: pointer;
-      font-weight: 600;
-      text-align: center;
-    }
-    .pill-btn.active {
-      background: #f97316;
-      border-color: #f97316;
-    }
-    
-    .stats-summary {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-    
-    .modal {
+    body::before {
+      content: "";
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0; pointer-events: none;
-      transition: opacity var(--animation-duration);
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.07;
+      background:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), rgba(0,0,0,0.25));
     }
-    .modal:not([aria-hidden="true"]) { opacity: 1; pointer-events: auto; }
-    .modal-card {
-      background: #1f2937;
-      padding: 24px;
-      border-radius: 12px;
-      max-width: 500px;
-      width: 90%;
-      border: 1px solid #374151;
-      max-height: 85vh;
-      overflow-y: auto;
+    .wrap { width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }
+    header.topbar {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px);
+      background: rgba(7,21,38,0.75); border-bottom: 1px solid var(--line);
     }
-    .modal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
+    .topbar-inner { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:14px 0; }
+    .brand { display:flex; flex-direction:column; gap:3px; }
+    .eyebrow { font-family: 'Bebas Neue', cursive; letter-spacing:0.18em; text-transform:uppercase; font-size:0.8rem; color:var(--accent); }
+    .title { margin:0; font-family: 'Bebas Neue', cursive; letter-spacing:0.04em; line-height:0.92; font-size: clamp(2.2rem, 5vw, 4.5rem); text-transform:uppercase; }
+    .subtitle { color:var(--muted); max-width:70ch; font-size:0.95rem; }
+    .top-actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    button, input, select { font: inherit; }
+    .btn {
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color:var(--text);
+      padding:12px 16px;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:800;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
     }
-    
-    .leaderboard-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .leaderboard-table th, .leaderboard-table td {
-      padding: 8px;
-      font-size: 0.9rem;
-      border-bottom: 1px solid #374151;
-    }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), #d67e00); border-color:transparent; color:#fff; }
+    .btn.secondary { background: linear-gradient(135deg, rgba(126,200,227,0.22), rgba(126,200,227,0.12)); }
+    .btn.warn { background: linear-gradient(135deg, rgba(239,93,93,0.22), rgba(239,93,93,0.12)); }
+    .btn.ghost { background:transparent; box-shadow:none; }
+    main { padding:30px 0 80px; }
+    .hero { display:grid; grid-template-columns:1.05fr 0.95fr; gap:20px; margin-bottom:20px; }
+    .panel { border:1px solid var(--line); border-radius:var(--radius); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); box-shadow: var(--shadow); overflow:hidden; position:relative; padding:0; }
+    .panel::after { content:""; position:absolute; right:-80px; bottom:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(245,166,35,0.12), transparent 70%); pointer-events:none; }
+    .setup { padding:26px; display:flex; flex-direction:column; gap:18px; }
+    .section-title { margin:0; font-family:'Bebas Neue', cursive; letter-spacing:0.05em; font-size:clamp(1.5rem,3vw,2.2rem); text-transform:uppercase; }
+    .muted { color:var(--muted); }
+    .setup-grid { display:grid; grid-template-columns:1fr auto; gap:16px; align-items:start; }
+    .player-list { display:flex; flex-direction:column; gap:10px; padding-right:4px; }
+    .player-row { display:grid; grid-template-columns:1fr auto; gap:10px; }
+    .input, .date-input { width:100%; background:rgba(0,0,0,0.18); border:1px solid var(--line); color:var(--text); padding:14px 16px; border-radius:14px; outline:none; transition:border-color .18s ease, box-shadow .18s ease; }
+    .input:focus, .date-input:focus { border-color: rgba(245,166,35,0.5); box-shadow: 0 0 0 4px rgba(245,166,35,0.1); }
+    .setup-side { min-width:190px; display:flex; flex-direction:column; gap:12px; padding:26px; }
+    .facts { padding:26px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; align-content:start; }
+    .fact { padding:18px; border-radius:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); }
+    .fact .k { color:var(--accent); text-transform:uppercase; letter-spacing:0.14em; font-size:0.78rem; font-weight:800; }
+    .fact .v { margin-top:8px; font-size:1.35rem; font-weight:800; }
+    .game-layout { display:grid; grid-template-columns:1.08fr 0.92fr; gap:20px; align-items:start; margin-top:20px; }
+    .scoreboard { padding:22px; }
+    .scoreboard-head { display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap; margin-bottom:18px; padding:22px 22px 0 22px; }
+    .round-badge { padding:10px 14px; border-radius:999px; background: rgba(245,166,35,0.12); border:1px solid rgba(245,166,35,0.18); color:var(--gold); font-weight:800; letter-spacing:0.04em; text-transform:uppercase; font-size:0.86rem; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { text-align:left; padding:12px 10px; border-bottom:1px solid var(--line); vertical-align:middle; }
+    th { color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; font-size:0.8rem; font-weight:700; }
+    .active-row { background: linear-gradient(90deg, rgba(245,166,35,0.14), transparent 78%); }
+    .score-pill { display:inline-flex; align-items:center; justify-content:center; min-width:56px; padding:8px 12px; border-radius:999px; background: rgba(255,255,255,0.06); font-weight:800; }
+    .turn-panel { padding:22px; display:flex; flex-direction:column; gap:18px; }
+    .turn-top { display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:flex-start; }
+    .current-player { margin:0; font-family:'Bebas Neue', cursive; letter-spacing:0.05em; line-height:0.92; font-size:clamp(2rem,4vw,3rem); }
+    .turn-meta { display:flex; gap:10px; flex-wrap:wrap; }
+    .tag { padding:10px 12px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,0.04); font-size:0.88rem; font-weight:700; }
+    .dart-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .dart-box { min-height:84px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,0.03); padding:14px; display:flex; flex-direction:column; justify-content:center; gap:6px; }
+    .dart-box .n { color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; font-size:0.75rem; }
+    .dart-box .v { font-weight:800; font-size:1.05rem; }
+    .selection { display:grid; gap:14px; padding:0 0 0 0; }
+    .multiplier-row, .action-row { display:flex; flex-wrap:wrap; gap:10px; }
+    .pill-btn { border-radius:14px; padding:12px 14px; border:1px solid var(--line); background:rgba(255,255,255,0.04); color:var(--text); cursor:pointer; font-weight:800; transition:.18s ease; }
+    .pill-btn.active { background: linear-gradient(135deg, var(--accent), #d67e00); border-color:transparent; color:white; }
+    .number-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px; }
+    .num-btn { padding:14px 0; border-radius:16px; border:1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); color:var(--text); font-weight:800; cursor:pointer; }
+    .num-btn.target { background: linear-gradient(180deg, rgba(126,200,227,0.26), rgba(255,255,255,0.03)); border-color: rgba(126,200,227,0.34); color:#e6f0fa; box-shadow: 0 14px 26px rgba(0,0,0,0.18); }
+    .history-log { border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+    .log-item { display:flex; justify-content:space-between; gap:12px; padding-bottom:8px; border-bottom:1px dashed rgba(255,255,255,0.06); color:var(--muted); font-size:0.95rem; }
+    .calendar-layout { display:grid; grid-template-columns:0.95fr 1.05fr; gap:20px; margin-top:20px; }
+    .calendar-panel, .leader-panel { padding:22px; }
+    .calendar-controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:14px 0 18px; }
+    .game-list { display:flex; flex-direction:column; gap:10px; max-height:470px; overflow:auto; padding-right:4px; }
+    .game-item { padding:16px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,0.03); display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
+    .game-item h4 { margin:0 0 6px; font-size:1rem; }
+    .mini { color:var(--muted); font-size:0.88rem; }
+    .leaderboard-table td:first-child { font-weight:800; }
+    .rank { font-family:'Bebas Neue', cursive; font-size:1.18rem; color:var(--gold); letter-spacing:0.04em; }
+    .modal { position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
+    .modal.open { display:flex; }
+    .modal-card { width:min(920px,100%); max-height:90vh; overflow:auto; border-radius:26px; border:1px solid var(--line); background: linear-gradient(180deg, #0b1a2a, #071523); box-shadow: var(--shadow); padding:24px; }
+    .modal-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
+    .final-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .final-box { padding:16px; border-radius:18px; border:1px solid var(--line); background: rgba(255,255,255,0.03); }
+    .empty { color:var(--muted); border:1px dashed var(--line); border-radius:16px; padding:18px; text-align:center; }
+    .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .stagger > * { opacity:0; transform:translateY(14px); animation: rise .6s ease forwards; }
+    .stagger > *:nth-child(1) { animation-delay:0.05s; }
+    .stagger > *:nth-child(2) { animation-delay:0.12s; }
+    .stagger > *:nth-child(3) { animation-delay:0.19s; }
+    .stagger > *:nth-child(4) { animation-delay:0.26s; }
+    .stagger > *:nth-child(5) { animation-delay:0.33s; }
+    @keyframes rise { to { opacity:1; transform:translateY(0); } }
+    @media (max-width:1100px) { .hero, .game-layout, .calendar-layout, .final-grid { grid-template-columns:1fr; } }
+    @media (max-width:760px) { .topbar-inner { flex-direction:column; align-items:flex-start; } .top-actions { width:100%; justify-content:flex-start; } .setup-grid { grid-template-columns:1fr; } .player-row { grid-template-columns:1fr; } .number-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+    @media (max-width:520px) { .facts { grid-template-columns:1fr; } .dart-strip { grid-template-columns:1fr; } .number-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
   </style>
 </head>
 <body>
-
-  <header>
-    <div class="header-titles">
-      <p class="eyebrow">Darts Format</p>
-      <h1>Basketball</h1>
-    </div>
-    <div>
-      <button class="btn ghost" id="viewLeaderboardBtn">Leaderboard</button>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="brand">
+        <div class="eyebrow">Darts Webapp</div>
+        <h1 class="title">Basketball Darts</h1>
+        <div class="subtitle">4 quarters, 6 possessions per quarter. NBA style scoring with special segments. After each quarter, MVP is shown based on weighted scoring.</div>
+      </div>
+      <div class="top-actions">
+        <button class="btn secondary" id="leaderboardBtn">Leaderboard</button>
+        <button class="btn ghost" id="showHistoryBtn">Played Games</button>
+        <button class="btn warn" id="newGameBtnTop">New Game</button>
+      </div>
     </div>
   </header>
 
-  <main>
-    <!-- SETUP PANEL -->
-    <section class="panel" id="setupPanel">
-      <h2 class="section-title">New Match Configuration</h2>
-      <div class="grid-2">
-        <div>
-          <div class="form-group">
-            <label for="matchType">Match Rules Setup</label>
-            <select id="matchType">
-              <option value="standard">4 Quarters (Standard Rules)</option>
-            </select>
+  <main class="wrap">
+    <section class="hero">
+      <section class="panel setup reveal">
+        <div class="stagger" style="padding:22px;">
+          <div>
+            <p class="eyebrow">Game Setup</p>
+            <h2 class="section-title">Players & Match Controls</h2>
+            <p class="muted">Add players. Each round is 3 darts, 6 possessions per quarter, 4 quarters total. Score points by hitting board segments with NBA style values.</p>
           </div>
-          <div class="form-group">
-            <label>Add Players to Match</label>
-            <div class="player-setup-row">
-              <input type="text" id="playerNameInput" placeholder="Enter name...">
-              <button class="btn primary" id="addPlayerBtn">Add</button>
+
+          <div class="setup-grid">
+            <div>
+              <div id="playerList" class="player-list"></div>
+              <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+                <button class="btn secondary" id="addPlayerBtn">Add Player</button>
+                <button class="btn primary" id="startGameBtn">Start New Live Game</button>
+              </div>
+            </div>
+
+            <div class="setup-side">
+              <label for="playedDate" class="eyebrow" style="font-size:.72rem;">Played date</label>
+              <input id="playedDate" class="date-input" type="date" />
+              <button class="btn ghost" id="todayBtn">Use Today</button>
+              <div class="muted" style="font-size:.9rem;">Used when saving the finished game to history.</div>
             </div>
           </div>
         </div>
-        <div>
-          <label>Current Match Roster</label>
-          <div id="rosterContainer" style="margin-bottom: 16px;">
-            <!-- Dynamic list of added players -->
-          </div>
-          <button class="btn primary" id="startMatchBtn" style="width: 100%;" disabled>Start Match</button>
+      </section>
+
+      <aside class="panel facts reveal" style="padding:22px;">
+        <div class="fact">
+          <div class="k">Quarters</div>
+          <div class="v">4</div>
         </div>
-      </div>
+        <div class="fact">
+          <div class="k">Possessions per Quarter</div>
+          <div class="v">6</div>
+        </div>
+        <div class="fact">
+          <div class="k">Scoring</div>
+          <div class="v">Bull=6, Double=5, Triple=4, Inner Single=2, Outer Single=3, Miss=0</div>
+        </div>
+        <div class="fact">
+          <div class="k">Storage</div>
+          <div class="v">Local</div>
+        </div>
+      </aside>
     </section>
 
-    <!-- LIVE GAME PANEL -->
-    <section class="panel game hidden" id="gamePanel">
-      <div class="game-layout">
-        <!-- Scoreboard Table View -->
-        <div style="overflow-x: auto;">
-          <table class="scoreboard-table">
-            <thead>
-              <tr>
-                <th style="text-align: left;">Player</th>
-                <th>Q1</th>
-                <th>Q2</th>
-                <th>Q3</th>
-                <th>Q4</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody id="scoreboardBody">
-              <!-- Live rows -->
-            </tbody>
-          </table>
-          <div id="turnIndicatorContainer" style="margin-top: 16px; font-weight: 500;">
-            <!-- Whos throwing -->
+    <section class="game-layout">
+      <section class="panel scoreboard reveal">
+        <div class="scoreboard-head">
+          <div>
+            <p class="eyebrow">Live Match</p>
+            <h2 class="section-title">Scoreboard</h2>
+          </div>
+          <div class="badges" style="display:flex; gap:8px;">
+            <div class="round-badge" id="quarterBadge">Q1</div>
+            <div class="round-badge" id="possessionBadge">Possession 1</div>
+            <div class="round-badge" id="roundBadge">Round 1</div>
           </div>
         </div>
 
-        <!-- Controls View -->
-        <div class="selection">
+        <div style="overflow:auto; padding:0 22px 22px 22px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Player</th>
+                <th>Total Points</th>
+                <th>Points This Quarter</th>
+                <th>Points This Round</th>
+              </tr>
+            </thead>
+            <tbody id="scoreboardBody"></tbody>
+          </table>
+        </div>
+
+        <div class="history-log" style="padding:0 22px 22px 22px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+            <h3 class="section-title" style="font-size:1.05rem;">Play Log</h3>
+            <div class="muted" id="logSummary">No darts thrown yet.</div>
+          </div>
+          <div id="turnLog"></div>
+        </div>
+      </section>
+
+      <section class="panel turn-panel reveal">
+        <div class="turn-top">
+          <div>
+            <p class="eyebrow">Current Player</p>
+            <h2 class="current-player" id="currentPlayerName">No game active</h2>
+            <div class="muted" id="currentPlayerSub">Start a game to begin.</div>
+          </div>
+          <div class="turn-meta">
+            <div class="tag" id="selectedMultiplierTag">Selected: Outer Single</div>
+            <div class="tag" id="dartsLeftTag">Darts Left: 3</div>
+          </div>
+        </div>
+
+        <div class="dart-strip" style="padding: 0 22px;">
+          <div class="dart-box">
+            <div class="n">Dart 1</div>
+            <div class="v" id="dartDisplay1">—</div>
+          </div>
+          <div class="dart-box">
+            <div class="n">Dart 2</div>
+            <div class="v" id="dartDisplay2">—</div>
+          </div>
+          <div class="dart-box">
+            <div class="n">Dart 3</div>
+            <div class="v" id="dartDisplay3">—</div>
+          </div>
+        </div>
+
+        <div class="selection" style="padding: 22px;">
           <div>
             <p class="eyebrow" style="font-size:.72rem;">Segment</p>
             <div class="multiplier-row" id="multiplierRow">
@@ -309,6 +290,12 @@
               <button class="pill-btn" data-multiplier="3">Triple</button>
             </div>
           </div>
+
+          <div>
+            <p class="eyebrow" style="font-size:.72rem;">Targets</p>
+            <div class="number-grid" id="numberGrid"></div>
+          </div>
+
           <div>
             <p class="eyebrow" style="font-size:.72rem;">Actions</p>
             <div class="action-row">
@@ -318,11 +305,45 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
+    </section>
+
+    <section class="calendar-layout">
+      <section class="panel calendar-panel reveal">
+        <p class="eyebrow">Calendar</p>
+        <h2 class="section-title">Previously Played Games</h2>
+        <div class="calendar-controls">
+          <input type="date" id="historyDateFilter" class="date-input" style="max-width:240px;" />
+          <button class="btn secondary" id="filterHistoryBtn">Filter Date</button>
+          <button class="btn ghost" id="clearHistoryFilterBtn">Clear Filter</button>
+        </div>
+        <div id="historyList" class="game-list" style="padding:0 22px 22px 22px;"></div>
+      </section>
+
+      <section class="panel leader-panel reveal">
+        <p class="eyebrow">Rankings</p>
+        <h2 class="section-title">Leaderboard</h2>
+        <div style="overflow:auto; padding:0 22px 22px 22px;">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>W</th>
+                <th>L</th>
+                <th>Win %</th>
+                <th>Elo</th>
+                <th>PPG</th>
+                <th>PPQ</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardBody"></tbody>
+          </table>
+        </div>
+      </section>
     </section>
   </main>
 
-  <!-- MODALS -->
   <div class="modal" id="quarterModal" aria-hidden="true">
     <div class="modal-card">
       <div class="modal-head">
@@ -346,7 +367,7 @@
         <button class="btn ghost" id="closeFinalModal">Close</button>
       </div>
       <div id="finalContent"></div>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px;">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:20px;">
         <button class="btn primary" id="submitFinishedGameBtn">Submit Game</button>
         <button class="btn warn" id="discardFinishedGameBtn">Discard</button>
       </div>
@@ -362,7 +383,7 @@
         </div>
         <button class="btn ghost" id="closeLeaderboardModal">Close</button>
       </div>
-      <div style="overflow: auto;">
+      <div style="overflow:auto;">
         <table class="leaderboard-table">
           <thead>
             <tr>
@@ -393,257 +414,744 @@
 
     const SCORING = {
       miss: 0,
-      outer_single: 1,
-      inner_single: 1,
-      bull: 2,
-      2: 2,
-      3: 3
+      bull: 6,
+      double: 5,
+      triple: 4,
+      inner_single: 2,
+      outer_single: 3
     };
 
-    let players = [];
-    let gameState = null;
+    const MAX_QUARTERS = 4;
+    const POSSESSIONS_PER_QUARTER = 6;
+    const DARTS_PER_ROUND = 3;
 
-    // Dom Elements
-    const setupPanel = document.getElementById('setupPanel');
-    const gamePanel = document.getElementById('gamePanel');
-    const playerNameInput = document.getElementById('playerNameInput');
-    const addPlayerBtn = document.getElementById('addPlayerBtn');
-    const rosterContainer = document.getElementById('rosterContainer');
-    const startMatchBtn = document.getElementById('startMatchBtn');
-    const scoreboardBody = document.getElementById('scoreboardBody');
-    const turnIndicatorContainer = document.getElementById('turnIndicatorContainer');
-    const multiplierRow = document.getElementById('multiplierRow');
-    const missBtn = document.getElementById('missBtn');
-    const undoBtn = document.getElementById('undoBtn');
-    const newGameBtn = document.getElementById('newGameBtn');
-    const viewLeaderboardBtn = document.getElementById('viewLeaderboardBtn');
-    
-    // Modals
-    const quarterModal = document.getElementById('quarterModal');
-    const quarterMVPContent = document.getElementById('quarterMVPContent');
-    const closeQuarterModal = document.getElementById('closeQuarterModal');
-    const finalModal = document.getElementById('finalModal');
-    const finalContent = document.getElementById('finalContent');
-    const closeFinalModal = document.getElementById('closeFinalModal');
-    const submitFinishedGameBtn = document.getElementById('submitFinishedGameBtn');
-    const discardFinishedGameBtn = document.getElementById('discardFinishedGameBtn');
-    const leaderboardModal = document.getElementById('leaderboardModal');
-    const leaderboardModalBody = document.getElementById('leaderboardModalBody');
-    const closeLeaderboardModal = document.getElementById('closeLeaderboardModal');
+    const state = {
+      activeGame: null,
+      finishedGamePending: null,
+      selectedMultiplier: 'outer_single',
+      historyFilter: '',
+      history: [],
+      leaderboard: {},
+      snapshots: []
+    };
 
-    // Setup Actions
-    addPlayerBtn.addEventListener('click', () => {
-      const name = playerNameInput.value.trim();
-      if (!name) return;
-      if (players.includes(name)) {
-        alert('Player already added');
+    const $ = (id) => document.getElementById(id);
+
+    function todayStr() {
+      const d = new Date();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${d.getFullYear()}-${m}-${day}`;
+    }
+
+    function clone(obj) {
+      return JSON.parse(JSON.stringify(obj));
+    }
+
+    function escapeHtml(str = '') {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function loadStorage() {
+      state.history = JSON.parse(localStorage.getItem(STORAGE_KEYS.history) || '[]');
+      state.leaderboard = JSON.parse(localStorage.getItem(STORAGE_KEYS.leaderboard) || '{}');
+      state.activeGame = JSON.parse(localStorage.getItem(STORAGE_KEYS.activeGame) || 'null');
+    }
+
+    function saveStorage() {
+      if (state.activeGame) {
+        // keep game state inside activeGame
+      }
+      localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(state.history));
+      localStorage.setItem(STORAGE_KEYS.leaderboard, JSON.stringify(state.leaderboard));
+      localStorage.setItem(STORAGE_KEYS.activeGame, JSON.stringify(state.activeGame));
+    }
+
+    function createPlayerInput(value = '') {
+      const row = document.createElement('div');
+      row.className = 'player-row';
+      row.innerHTML = `
+        <input class="input player-input" type="text" maxlength="24" placeholder="Player name" value="${escapeHtml(value)}" />
+        <button class="btn ghost remove-player-btn" type="button">Remove</button>
+      `;
+      row.querySelector('.remove-player-btn').addEventListener('click', () => {
+        const list = $('playerList');
+        if (!list) return;
+        if (list.children.length > 2) row.remove();
+      });
+      $('playerList').appendChild(row);
+    }
+
+    function initPlayerInputs() {
+      $('playerList').innerHTML = '';
+      createPlayerInput('');
+      createPlayerInput('');
+    }
+
+    function getSetupNames() {
+      return [...document.querySelectorAll('.player-input')]
+        .map(i => i.value.trim())
+        .filter(Boolean);
+    }
+
+    function uniqueNames(names) {
+      return new Set(names.map(n => n.toLowerCase())).size === names.length;
+    }
+
+    function createNewGame(names) {
+      return {
+        id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()),
+        date: $('playedDate').value || todayStr(),
+        players: names.map(name => ({
+          name,
+          totalPoints: 0,
+          pointsPerQuarter: Array(MAX_QUARTERS).fill(0),
+          pointsPerRound: [],
+          roundsPlayed: 0,
+          wins: 0,
+          losses: 0
+        })),
+        currentPlayerIndex: 0,
+        currentQuarter: 1,
+        currentPossession: 1,
+        currentRound: 1,
+        currentDartIndex: 0,
+        dartsThisRound: [],
+        turnLog: [],
+        status: 'active',
+        winner: null,
+        clockRemaining: 20 * 60,
+        clockRunning: false
+      };
+    }
+
+    function startGame() {
+      const names = getSetupNames();
+      if (names.length < 2) {
+        alert('Please enter at least 2 player names.');
         return;
       }
-      players.push(name);
-      playerNameInput.value = '';
-      renderRoster();
-    });
-
-    playerNameInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') addPlayerBtn.click();
-    });
-
-    function renderRoster() {
-      rosterContainer.innerHTML = '';
-      players.forEach((p, idx) => {
-        const div = document.createElement('div');
-        div.className = 'player-list-item';
-        div.innerHTML = `
-          <span>${p}</span>
-          <button class="btn ghost" style="padding:4px 8px; color:#ef4444; border-color:#7f1d1d;" onclick="removePlayer(${idx})">Remove</button>
-        `;
-        rosterContainer.appendChild(div);
-      });
-      startMatchBtn.disabled = players.length < 1;
-    }
-
-    window.removePlayer = function(idx) {
-      players.splice(idx, 1);
-      renderRoster();
-    };
-
-    startMatchBtn.addEventListener('click', () => {
-      if (players.length < 1) return;
-      initGame(players);
-    });
-
-    // Game Core
-    function initGame(playerNames) {
-      gameState = {
-        players: playerNames.map(name => ({
-          name,
-          quarters: [0, 0, 0, 0],
-          stats: { marks: 0, rounds: 0 }
-        })),
-        currentQuarter: 0, // 0 = Q1, 1 = Q2...
-        currentPlayerIdx: 0,
-        dartsInRound: 0,
-        history: [] // stack for undoing individual darts
-      };
-      saveState();
-      showPanel('game');
-      renderScoreboard();
-    }
-
-    function showPanel(panel) {
-      if (panel === 'setup') {
-        setupPanel.classList.remove('hidden');
-        gamePanel.classList.add('hidden');
-      } else {
-        setupPanel.classList.add('hidden');
-        gamePanel.classList.remove('hidden');
+      if (!uniqueNames(names)) {
+        alert('Player names must be unique.');
+        return;
       }
+      state.activeGame = createNewGame(names);
+      state.finishedGamePending = null;
+      state.snapshots = [clone(state.activeGame)];
+      saveStorage();
+      renderAll();
     }
 
-    function renderScoreboard() {
-      if (!gameState) return;
-      scoreboardBody.innerHTML = '';
-      
-      gameState.players.forEach((p, idx) => {
-        const tr = document.createElement('tr');
-        if (idx === gameState.currentPlayerIdx) tr.className = 'active-row';
-        
-        const total = p.quarters.reduce((a, b) => a + b, 0);
-        
-        tr.innerHTML = `
-          <td style="text-align: left; font-weight: 600;">
-            ${p.name} ${idx === gameState.currentPlayerIdx ? '<span class="possession-dot"></span>' : ''}
-            <div class="stats-summary">Marks: ${p.stats.marks} | Rds: ${p.stats.rounds}</div>
-          </td>
-          <td>${p.quarters[0]}</td>
-          <td>${p.quarters[1]}</td>
-          <td>${p.quarters[2]}</td>
-          <td>${p.quarters[3]}</td>
-          <td style="font-weight: bold; color: #f97316;">${total}</td>
-        `;
-        scoreboardBody.appendChild(tr);
-      });
-
-      const currentActivePlayer = gameState.players[gameState.currentPlayerIdx];
-      const remainingDarts = 3 - gameState.dartsInRound;
-      turnIndicatorContainer.innerHTML = `
-        <span class="quarter-box">Q${gameState.currentQuarter + 1}</span> 
-        <span style="margin-left: 8px; color: #f97316; font-weight: bold;">${currentActivePlayer.name}'s turn</span> 
-        <span style="color: var(--text-muted); font-size: 0.9rem;">(${remainingDarts} Darts Left)</span>
-      `;
+    function snapshot() {
+      if (state.activeGame) state.snapshots.push(clone(state.activeGame));
     }
 
-    // Input Controller Layout Configuration Interaction Layer
-    multiplierRow.addEventListener('click', (e) => {
-      if (!e.target.classList.contains('pill-btn')) return;
-      Array.from(multiplierRow.children).forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      
-      // Automatically register the scoring mark when a segment pill is pressed
-      const mult = e.target.getAttribute('data-multiplier');
-      handleScoringInput(mult);
-    });
+    function getCurrentPlayer() {
+      if (!state.activeGame) return null;
+      return state.activeGame.players[state.activeGame.currentPlayerIndex];
+    }
 
-    missBtn.addEventListener('click', () => handleScoringInput('miss'));
+    function scoringValue(mult) {
+      if (mult === 'bull') return SCORING.bull;
+      if (mult === '2') return SCORING.double;
+      if (mult === '3') return SCORING.triple;
+      if (mult === 'inner_single') return SCORING.inner_single;
+      if (mult === 'outer_single') return SCORING.outer_single;
+      return SCORING.miss;
+    }
 
-    function handleScoringInput(multiplier) {
-      if (!gameState) return;
+    function multiplierLabel(mult) {
+      if (mult === 'bull') return 'Bull';
+      if (mult === '2') return 'Double';
+      if (mult === '3') return 'Triple';
+      if (mult === 'inner_single') return 'Inner Single';
+      if (mult === 'outer_single') return 'Outer Single';
+      return 'Miss';
+    }
 
-      const p = gameState.players[gameState.currentPlayerIdx];
-      const points = SCORING[multiplier] || 0;
+    function buildNumberGrid() {
+      const grid = $('numberGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const nums = Array.from({ length: 20 }, (_, i) => i + 1);
+      nums.push(25);
+      nums.forEach(n => {
+        const btn = document.createElement('button');
+        btn.className = 'num-btn';
+        btn.type = 'button';
+        btn.textContent = n === 25 ? 'Bull' : n;
+        btn.dataset.value = n;
+        grid.appendChild(btn);
+      });
+    }
 
-      // Deep record action frame for reversal stability
-      gameState.history.push({
-        playerIdx: gameState.currentPlayerIdx,
-        quarterIdx: gameState.currentQuarter,
-        points: points,
-        dartsCount: gameState.dartsInRound,
-        hadMarks: points > 0
+    function throwDart(base, mult, isMiss = false) {
+      const game = state.activeGame;
+      if (!game || game.status !== 'active') return;
+      if (typeof game.currentDartIndex !== 'number') game.currentDartIndex = 0;
+      if (game.currentDartIndex >= DARTS_PER_ROUND) return;
+
+      snapshot();
+
+      const player = getCurrentPlayer();
+      if (!player) return;
+
+      const dartOrder = game.currentDartIndex + 1;
+      const label = isMiss ? 'Miss' : `${multiplierLabel(mult)} ${base === 25 ? 'Bull' : base}`;
+      const points = isMiss ? 0 : scoringValue(mult);
+
+      game.turnLog.unshift({
+        quarter: game.currentQuarter,
+        possession: game.currentRound,
+        round: game.currentRound,
+        player: player.name,
+        text: `Dart ${dartOrder}: ${label} (${points} pts)`,
+        timestamp: Date.now()
       });
 
-      // Frame Calculation Mutation Strategy
-      p.quarters[gameState.currentQuarter] += points;
-      if (points > 0) p.stats.marks += points;
+      player.totalPoints += points;
+      player.pointsPerQuarter[game.currentQuarter - 1] += points;
 
-      gameState.dartsInRound++;
+      if (!player.pointsPerRound[game.currentRound - 1]) player.pointsPerRound[game.currentRound - 1] = 0;
+      player.pointsPerRound[game.currentRound - 1] += points;
 
-      if (gameState.dartsInRound >= 3) {
-        p.stats.rounds++;
-        gameState.dartsInRound = 0;
-        gameState.currentPlayerIdx++;
+      game.currentDartIndex++;
 
-        if (gameState.currentPlayerIdx >= gameState.players.length) {
-          gameState.currentPlayerIdx = 0;
-          
-          // Complete entire configuration round iteration inside target rules matrix
-          if (isQuarterComplete()) {
-            triggerQuarterBreak();
+      if (game.currentDartIndex >= DARTS_PER_ROUND) {
+        finalizeRound();
+      }
+
+      saveStorage();
+      renderAll();
+    }
+
+    function finalizeRound() {
+      const game = state.activeGame;
+      if (!game) return;
+
+      const player = game.players[(game.currentPlayerIndex + game.players.length) % game.players.length];
+      // increment rounds played for the player who just finished
+      const lastPlayerIndex = (game.currentPlayerIndex) % game.players.length;
+      if (game.players[lastPlayerIndex]) game.players[lastPlayerIndex].roundsPlayed++;
+
+      game.currentDartIndex = 0;
+      game.currentPlayerIndex = (game.currentPlayerIndex + 1) % game.players.length;
+
+      // if we wrapped back to first player, it's a new possession/round
+      if (game.currentPlayerIndex === 0) {
+        game.currentRound++;
+        game.currentPossession = game.currentRound;
+        if (game.currentRound > POSSESSIONS_PER_QUARTER) {
+          // show MVP for the quarter just completed
+          showQuarterMVP();
+          game.currentRound = 1;
+          game.currentPossession = 1;
+          game.currentQuarter++;
+          if (game.currentQuarter > MAX_QUARTERS) {
+            endGame();
+            return;
           }
         }
       }
 
-      saveState();
-      renderScoreboard();
+      saveStorage();
+      renderAll();
     }
 
-    function isQuarterComplete() {
-      // Simple loop configuration tracking validation mapping
-      return false; 
+    function showQuarterMVP() {
+      const game = state.activeGame;
+      if (!game) return;
+
+      const quarter = game.currentQuarter;
+      const players = game.players.map(p => {
+        const totalQ = p.pointsPerQuarter[quarter - 1] || 0;
+        // For bestRound, use pointsPerRound entries that fall within this quarter's possession range.
+        // This implementation keeps per-round data linear; we will approximate best round by searching p.pointsPerRound
+        // for the highest value (no strict partitioning required here).
+        const bestRound = p.pointsPerRound.length ? Math.max(...p.pointsPerRound) : 0;
+        const weighted = totalQ * 0.7 + bestRound * 0.3;
+        return { name: p.name, weighted, totalQ, bestRound };
+      });
+
+      players.sort((a, b) => b.weighted - a.weighted);
+      const mvp = players[0];
+
+      const modal = $('quarterModal');
+      if (!modal) return;
+      $('quarterMVPContent').innerHTML = `
+        <p><strong>${escapeHtml(mvp.name)}</strong> is the MVP of Quarter ${quarter}!</p>
+        <p>Total Points: ${mvp.totalQ}</p>
+        <p>Best Round: ${mvp.bestRound}</p>
+        <p>Weighted Score: ${mvp.weighted.toFixed(2)}</p>
+      `;
+      openModal(modal);
     }
 
-    function triggerQuarterBreak() {
-      // Show summary modals
+    function endGame() {
+      const game = state.activeGame;
+      if (!game) return;
+      const maxPoints = Math.max(...game.players.map(p => p.totalPoints));
+      const winners = game.players.filter(p => p.totalPoints === maxPoints).map(p => p.name);
+      game.winner = winners.join(' / ');
+      game.status = 'finished-pending';
+      state.finishedGamePending = clone(game);
+      openFinalModal();
+      saveStorage();
     }
 
-    undoBtn.addEventListener('click', () => {
-      if (!gameState || gameState.history.length === 0) return;
-      const last = gameState.history.pop();
-      
-      const p = gameState.players[last.playerIdx];
-      p.quarters[last.quarterIdx] -= last.points;
-      if (last.hadMarks) p.stats.marks -= last.points;
+    function undoLast() {
+      if (state.snapshots.length > 1) {
+        state.snapshots.pop();
+        state.activeGame = clone(state.snapshots[state.snapshots.length - 1]);
+        saveStorage();
+        renderAll();
+      }
+    }
 
-      gameState.currentPlayerIdx = last.playerIdx;
-      gameState.currentQuarter = last.quarterIdx;
-      gameState.dartsInRound = last.dartsCount;
+    function openFinalModal() {
+      const game = state.finishedGamePending;
+      if (!game) return;
+      const sorted = [...game.players].sort((a, b) => b.totalPoints - a.totalPoints);
 
-      if (last.dartsCount === 0 && last.points > 0) {
-        // Correct round adjustments framework if needed
+      $('finalContent').innerHTML = `
+        <div class="final-grid">
+          <div class="final-box">
+            <div class="eyebrow">Winner</div>
+            <h3 class="section-title" style="font-size:2rem;">${escapeHtml(game.winner)}</h3>
+            <p class="muted">Highest total points after ${MAX_QUARTERS} quarters.</p>
+            <p class="muted">Played on ${escapeHtml(game.date)}</p>
+          </div>
+          <div class="final-box">
+            <div class="eyebrow">Game Summary</div>
+            <p class="muted">NBA style scoring: Bull=6, Double=5, Triple=4, Inner Single=2, Outer Single=3, Miss=0.</p>
+          </div>
+        </div>
+        <div class="final-box" style="margin-top:18px;">
+          <div class="eyebrow">Final Scoreboard</div>
+          <div style="overflow:auto; margin-top:10px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Total Points</th>
+                  <th>Points Per Quarter</th>
+                  <th>Points Per Game</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${sorted.map(p => `
+                  <tr>
+                    <td>${escapeHtml(p.name)}</td>
+                    <td>${p.totalPoints}</td>
+                    <td>${p.pointsPerQuarter.map(q => q || 0).join(' / ')}</td>
+                    <td>${(p.totalPoints / (p.roundsPlayed || 1)).toFixed(2)}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+      openModal($('finalModal'));
+    }
+
+    function openModal(el) {
+      if (!el) return;
+      el.classList.add('open');
+      el.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal(el) {
+      if (!el) return;
+      el.classList.remove('open');
+      el.setAttribute('aria-hidden', 'true');
+    }
+
+    function renderScoreboard() {
+      const tbody = $('scoreboardBody');
+      tbody.innerHTML = '';
+      const game = state.activeGame;
+      if (!game) {
+        tbody.innerHTML = `<tr><td colspan="4"><div class="empty">No active game. Add players and start a live game.</div></td></tr>`;
+        $('quarterBadge').textContent = 'Q1';
+        $('possessionBadge').textContent = 'Possession 1';
+        $('roundBadge').textContent = 'Round 1';
+        return;
       }
 
-      saveState();
-      renderScoreboard();
-    });
+      $('quarterBadge').textContent = `Q${game.currentQuarter}`;
+      $('possessionBadge').textContent = `Possession ${game.currentPossession || game.currentRound}`;
+      $('roundBadge').textContent = `Round ${game.currentRound}`;
 
-    newGameBtn.addEventListener('click', () => {
-      if (confirm('Are you sure you want to completely clear this active round?')) {
-        localStorage.removeItem(STORAGE_KEYS.activeGame);
-        players = [];
-        renderRoster();
-        showPanel('setup');
-      }
-    });
+      game.players.forEach((p, idx) => {
+        const tr = document.createElement('tr');
+        if (idx === game.currentPlayerIndex && game.status === 'active') tr.className = 'active-row';
 
-    function saveState() {
-      localStorage.setItem(STORAGE_KEYS.activeGame, JSON.stringify(gameState));
+        const pointsThisQuarter = p.pointsPerQuarter[game.currentQuarter - 1] || 0;
+        const pointsThisRound = p.pointsPerRound[game.currentRound - 1] || 0;
+
+        tr.innerHTML = `
+          <td><strong>${escapeHtml(p.name)}</strong></td>
+          <td><span class="score-pill">${p.totalPoints}</span></td>
+          <td>${pointsThisQuarter}</td>
+          <td>${pointsThisRound}</td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
-    // Initial Bootstrap
-    (function init() {
-      const saved = localStorage.getItem(STORAGE_KEYS.activeGame);
-      if (saved) {
-        try {
-          gameState = JSON.parse(saved);
-          showPanel('game');
-          renderScoreboard();
-        } catch(e) {
-          showPanel('setup');
+    function renderTurnPanel() {
+      const game = state.activeGame;
+      if (!game) {
+        $('currentPlayerName').textContent = 'No game active';
+        $('currentPlayerSub').textContent = 'Add players and start a game.';
+        $('selectedMultiplierTag').textContent = `Selected: ${multiplierLabel(state.selectedMultiplier)}`;
+        $('dartsLeftTag').textContent = `Darts Left: ${DARTS_PER_ROUND}`;
+        ['1','2','3'].forEach(n => $(`dartDisplay${n}`).textContent = '—');
+        updateNumberGridHighlight();
+        return;
+      }
+
+      const player = getCurrentPlayer();
+      $('currentPlayerName').textContent = player ? player.name : 'Waiting...';
+      $('currentPlayerSub').textContent = `Round ${game.currentRound}, Possession ${game.currentPossession}, Quarter ${game.currentQuarter}`;
+      $('selectedMultiplierTag').textContent = `Selected: ${multiplierLabel(state.selectedMultiplier)}`;
+      $('dartsLeftTag').textContent = `Darts Left: ${DARTS_PER_ROUND - (game.currentDartIndex || 0)}`;
+
+      const darts = game.turnLog
+        .filter(x => x.player === (player ? player.name : '') && x.round === game.currentRound)
+        .slice(0, DARTS_PER_ROUND)
+        .reverse();
+
+      for (let i = 0; i < DARTS_PER_ROUND; i++) {
+        $(`dartDisplay${i + 1}`).textContent = darts[i] ? darts[i].text.split(': ')[1]?.split(' (')[0] || 'Thrown' : '—';
+      }
+
+      updateNumberGridHighlight();
+    }
+
+    function updateNumberGridHighlight() {
+      const game = state.activeGame;
+      const grid = $('numberGrid');
+      if (!grid) return;
+      const children = [...grid.children];
+      children.forEach(btn => btn.classList.remove('target'));
+      if (!game) return;
+      // highlight all numbers as available targets
+      children.forEach(btn => btn.classList.add('target'));
+    }
+
+    function renderTurnLog() {
+      const game = state.activeGame;
+      $('turnLog').innerHTML = '';
+      if (!game || !game.turnLog.length) {
+        $('logSummary').textContent = 'No darts thrown yet.';
+        $('turnLog').innerHTML = `<div class="empty">Every dart throw will be logged here.</div>`;
+        return;
+      }
+      $('logSummary').textContent = `${game.turnLog.length} logged event${game.turnLog.length === 1 ? '' : 's'}`;
+      game.turnLog.slice(0, 12).forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'log-item';
+        div.innerHTML = `<span>Q${item.quarter} P${item.possession} R${item.round} · <strong>${escapeHtml(item.player)}</strong> · ${escapeHtml(item.text)}</span><span>${new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`;
+        $('turnLog').appendChild(div);
+      });
+    }
+
+    function renderHistory() {
+      const wrap = $('historyList');
+      wrap.innerHTML = '';
+      let games = [...state.history];
+      if (state.historyFilter) games = games.filter(g => g.date === state.historyFilter);
+
+      if (!games.length) {
+        wrap.innerHTML = `<div class="empty">No saved games for this view yet.</div>`;
+        return;
+      }
+
+      games.forEach(game => {
+        const item = document.createElement('div');
+        item.className = 'game-item';
+        const line = game.players.map(p => `${p.name}: ${p.totalPoints}`).join(' · ');
+        item.innerHTML = `
+          <div>
+            <h4>${escapeHtml(game.winner)} won on ${escapeHtml(game.date)}</h4>
+            <div class="mini">Players: ${escapeHtml(game.players.map(p => p.name).join(', '))}</div>
+            <div class="mini">Final: ${escapeHtml(line)}</div>
+          </div>
+          <div>
+            <button class="btn ghost view-game-btn">View</button>
+          </div>
+        `;
+        item.querySelector('.view-game-btn').addEventListener('click', () => {
+          alert(
+            `Winner: ${game.winner}\nDate: ${game.date}\n\n` +
+            game.players.map(p => `${p.name} — Total Points: ${p.totalPoints}`).join('\n')
+          );
+        });
+        wrap.appendChild(item);
+      });
+    }
+
+    function getSortedLeaderboard() {
+      const rows = Object.values(state.leaderboard || {}).map(p => {
+        const games = (p.wins || 0) + (p.losses || 0);
+        const winPct = games ? (p.wins / games * 100) : 0;
+        return {
+          name: p.name,
+          wins: p.wins || 0,
+          losses: p.losses || 0,
+          winPct,
+          elo: p.elo || 1000,
+          pointsPerGame: p.pointsPerGame ? (p.pointsPerGame / (games || 1)) : (p.pointsPerGame || 0),
+          pointsPerQuarter: p.pointsPerQuarter || 0,
+          marks: p.marks || 0,
+          rounds: p.rounds || 0
+        };
+      });
+      // sort by elo desc, then wins
+      rows.sort((a, b) => (b.elo - a.elo) || (b.wins - a.wins));
+      return rows;
+    }
+
+    function renderLeaderboard() {
+      const rows = getSortedLeaderboard();
+      const targets = [$('leaderboardBody'), $('leaderboardModalBody')];
+
+      targets.forEach(target => {
+        target.innerHTML = '';
+        if (!rows.length) {
+          target.innerHTML = `<tr><td colspan="${target.id === 'leaderboardBody' ? 8 : 10}"><div class="empty">No completed games submitted yet.</div></td></tr>`;
+          return;
         }
-      } else {
-        showPanel('setup');
+
+        rows.forEach((p, i) => {
+          const tr = document.createElement('tr');
+          if (target.id === 'leaderboardBody') {
+            tr.innerHTML = `
+              <td class="rank">#${i + 1}</td>
+              <td>${escapeHtml(p.name)}</td>
+              <td>${p.wins}</td>
+              <td>${p.losses}</td>
+              <td>${p.winPct.toFixed(1)}%</td>
+              <td>${p.elo}</td>
+              <td>${(p.pointsPerGame || 0).toFixed(2)}</td>
+              <td>${(p.pointsPerQuarter || 0).toFixed(2)}</td>
+            `;
+          } else {
+            tr.innerHTML = `
+              <td class="rank">#${i + 1}</td>
+              <td>${escapeHtml(p.name)}</td>
+              <td>${p.wins}</td>
+              <td>${p.losses}</td>
+              <td>${p.winPct.toFixed(1)}%</td>
+              <td>${p.elo}</td>
+              <td>${p.marks}</td>
+              <td>${p.rounds}</td>
+              <td>${(p.pointsPerGame || 0).toFixed(2)}</td>
+              <td>${(p.pointsPerQuarter || 0).toFixed(2)}</td>
+            `;
+          }
+          target.appendChild(tr);
+        });
+      });
+    }
+
+    function ensureLeader(name) {
+      if (!state.leaderboard[name]) {
+        state.leaderboard[name] = {
+          name,
+          wins: 0,
+          losses: 0,
+          elo: 1000,
+          marks: 0,
+          rounds: 0,
+          pointsPerGame: 0,
+          pointsPerQuarter: 0
+        };
       }
-    })();
+      return state.leaderboard[name];
+    }
+
+    function expectedScore(ra, rb) {
+      return 1 / (1 + Math.pow(10, (rb - ra) / 400));
+    }
+
+    function updateLeaderboardFromGame(game) {
+      const winnerName = game.winner;
+      const K = 24;
+
+      game.players.forEach(p => {
+        const lp = ensureLeader(p.name);
+        lp.marks += p.totalPoints;
+        lp.rounds += p.roundsPlayed || 0;
+        lp.pointsPerGame += p.totalPoints;
+        lp.pointsPerQuarter += p.pointsPerQuarter.reduce((a,b) => a + (b||0), 0) / MAX_QUARTERS;
+        if (p.name === winnerName) lp.wins += 1;
+        else lp.losses += 1;
+      });
+
+      const winner = ensureLeader(winnerName);
+      game.players.forEach(p => {
+        if (p.name === winnerName) return;
+        const loser = ensureLeader(p.name);
+        const ew = expectedScore(winner.elo, loser.elo);
+        const el = expectedScore(loser.elo, winner.elo);
+        winner.elo = Math.round(winner.elo + K * (1 - ew));
+        loser.elo = Math.round(loser.elo + K * (0 - el));
+      });
+    }
+
+    function submitFinishedGame() {
+      if (!state.finishedGamePending) return;
+      const game = clone(state.finishedGamePending);
+      game.status = 'final';
+      state.history.unshift(game);
+      updateLeaderboardFromGame(game);
+      state.activeGame = null;
+      state.finishedGamePending = null;
+      state.snapshots = [];
+      closeModal($('finalModal'));
+      saveStorage();
+      renderAll();
+    }
+
+    function discardFinishedGame() {
+      state.activeGame = null;
+      state.finishedGamePending = null;
+      state.snapshots = [];
+      closeModal($('finalModal'));
+      saveStorage();
+      renderAll();
+    }
+
+    // safe clock render - check for elements before touching them
+    function renderClock() {
+      const badge = $('clockBadge');
+      const fill = $('clockFill');
+      // if elements don't exist, just return quietly
+      if (!badge || !fill) return;
+      // placeholder formatting
+      const remaining = (state.activeGame && state.activeGame.clockRemaining) ? state.activeGame.clockRemaining : 20*60;
+      const minutes = Math.floor(remaining / 60).toString().padStart(2, '0');
+      const seconds = (remaining % 60).toString().padStart(2, '0');
+      badge.textContent = `${minutes}:${seconds}`;
+      const percent = ((20 * 60 - remaining) / (20 * 60)) * 100;
+      fill.style.width = `${percent}%`;
+    }
+
+    // wrapper for throws (keeps previous API)
+    function throwWrapper(base, mult, isMiss = false) {
+      throwDart(base, mult, isMiss);
+    }
+
+    function renderAll() {
+      renderScoreboard();
+      renderTurnPanel();
+      renderTurnLog();
+      renderHistory();
+      renderLeaderboard();
+    }
+
+    function setupEvents() {
+      $('addPlayerBtn').addEventListener('click', () => createPlayerInput(''));
+      $('startGameBtn').addEventListener('click', startGame);
+      $('todayBtn').addEventListener('click', () => ($('playedDate').value = todayStr()));
+      $('playedDate').value = todayStr();
+
+      $('multiplierRow').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-multiplier]');
+        if (!btn) return;
+        state.selectedMultiplier = btn.dataset.multiplier;
+        [...$('multiplierRow').children].forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        renderTurnPanel();
+      });
+
+      $('missBtn').addEventListener('click', () => throwWrapper(0, state.selectedMultiplier, true));
+      $('undoBtn').addEventListener('click', () => undoLast());
+      $('newGameBtn').addEventListener('click', () => {
+        if (confirm('Start a new game? Current game will be cleared.')) {
+          state.activeGame = null;
+          state.finishedGamePending = null;
+          state.snapshots = [];
+          saveStorage();
+          renderAll();
+        }
+      });
+      // top new game button
+      $('newGameBtnTop').addEventListener('click', () => {
+        if (confirm('Start a new game? Current game will be cleared.')) {
+          state.activeGame = null;
+          state.finishedGamePending = null;
+          state.snapshots = [];
+          saveStorage();
+          renderAll();
+        }
+      });
+
+      $('filterHistoryBtn').addEventListener('click', () => {
+        state.historyFilter = $('historyDateFilter').value;
+        renderHistory();
+      });
+      $('clearHistoryFilterBtn').addEventListener('click', () => {
+        state.historyFilter = '';
+        $('historyDateFilter').value = '';
+        renderHistory();
+      });
+
+      $('leaderboardBtn').addEventListener('click', () => openModal($('leaderboardModal')));
+      $('closeLeaderboardModal').addEventListener('click', () => closeModal($('leaderboardModal')));
+      $('showHistoryBtn').addEventListener('click', () => {
+        const panel = document.querySelector('.calendar-panel');
+        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+
+      $('closeFinalModal').addEventListener('click', () => closeModal($('finalModal')));
+      $('submitFinishedGameBtn').addEventListener('click', submitFinishedGame);
+      $('discardFinishedGameBtn').addEventListener('click', discardFinishedGame);
+      $('closeQuarterModal').addEventListener('click', () => closeModal($('quarterModal')));
+
+      // close modals by clicking background
+      [$('finalModal'), $('leaderboardModal'), $('quarterModal')].forEach(modal => {
+        if (!modal) return;
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeModal(modal);
+        });
+      });
+
+      // delegated number-grid clicks
+      $('numberGrid').addEventListener('click', (e) => {
+        const btn = e.target.closest('.num-btn');
+        if (!btn) return;
+        const val = Number(btn.dataset.value);
+        throwWrapper(val, state.selectedMultiplier, false);
+      });
+    }
+
+    function initReveal() {
+      if (!('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }
+
+    // init
+    loadStorage();
+    initPlayerInputs();
+    buildNumberGrid();
+    setupEvents();
+    if (state.activeGame) state.snapshots = [clone(state.activeGame)];
+    renderAll();
+    initReveal();
   </script>
 </body>
 </html>
-```cite: 2, 3]
