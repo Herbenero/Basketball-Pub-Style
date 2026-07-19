@@ -574,23 +574,7 @@
       return 'Miss';
     }
 
-    function buildNumberGrid() {
-      const grid = $('numberGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
-      const nums = Array.from({ length: 20 }, (_, i) => i + 1);
-      nums.push(25);
-      nums.forEach(n => {
-        const btn = document.createElement('button');
-        btn.className = 'num-btn';
-        btn.type = 'button';
-        btn.textContent = n === 25 ? 'Bull' : n;
-        btn.dataset.value = n;
-        grid.appendChild(btn);
-      });
-    }
-
-    function throwDart(base, mult, isMiss = false) {
+        function throwDart(base, mult, isMiss = false) {
       const game = state.activeGame;
       if (!game || game.status !== 'active') return;
       if (typeof game.currentDartIndex !== 'number') game.currentDartIndex = 0;
