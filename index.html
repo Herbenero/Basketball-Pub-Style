@@ -286,8 +286,8 @@
  <button class="pill-btn" data-multiplier="bull">Bull</button>
  <button class="pill-btn" data-multiplier="outer_single">Outer Single</button>
  <button class="pill-btn" data-multiplier="inner_single">Inner Single</button>
- <button class="pill-btn" data-multiplier="2">Double</button> <!-- Change '2' to 'double' if your logic expects it -->
- <button class="pill-btn" data-multiplier="3">Triple</button> <!-- Change '3' to 'triple' if your logic expects it -->
+ <button class="pill-btn" data-multiplier="double">Double</button>
+<button class="pill-btn" data-multiplier="triple">Triple</button>
 </div>
           </div>
 
@@ -472,6 +472,38 @@
       localStorage.setItem(STORAGE_KEYS.activeGame, JSON.stringify(state.activeGame));
     }
 
+    // Helper to disable/enable UI buttons during the 5-second wait
+function setControlsEnabled(enabled) {
+  const buttons = document.querySelectorAll("#multiplierRow button, #numberGrid button, #missBtn");
+  buttons.forEach(btn => btn.disabled = !enabled);
+}
+
+// Turn completion logic with 5-second display pause
+function completeTurn() {
+  setControlsEnabled(false);
+  
+  if (els.currentPlayerSub) {
+    els.currentPlayerSub.textContent = "Turn finished — Next player in 5 seconds...";
+  }
+
+  setTimeout(() => {
+    // Reset dart displays
+    document.getElementById("dartDisplay1").textContent = "—";
+    document.getElementById("dartDisplay2").textContent = "—";
+    document.getElementById("dartDisplay3").textContent = "—";
+
+    // Advance to next player
+    state.currentPlayerIndex = (state.currentPlayerIndex + 1) % state.players.length;
+    
+    // Reset darts in turn counter
+    state.dartsInTurn = 0;
+
+    // Refresh UI for next player
+    updateTurnDisplay();
+    updateScoreboard();
+    setControlsEnabled(true);
+  }, 5000);
+}
     function createPlayerInput(value = '') {
       const row = document.createElement('div');
       row.className = 'player-row';
