@@ -435,6 +435,17 @@
       snapshots: []
     };
 
+    // REPLACE THIS:
+// const payload = { date, gameName, winCondition, results: names.map((name, i) => ({ name, score: scores[i] })) };
+
+// WITH THIS:
+const payload = {
+  date: date,
+  mode: gameName,
+  players: names,
+  scores: scores,
+  winner: winCondition === 'noscore' ? names[scores.indexOf(1)] : ''
+};
     const $ = (id) => document.getElementById(id);
 
     function todayStr() {
