@@ -472,6 +472,11 @@
       localStorage.setItem(STORAGE_KEYS.activeGame, JSON.stringify(state.activeGame));
     }
 
+    function clearDartDisplays() {
+  $('dartDisplay1').textContent = '—';
+  $('dartDisplay2').textContent = '—';
+  $('dartDisplay3').textContent = '—';
+}
     function createPlayerInput(value = '') {
       const row = document.createElement('div');
       row.className = 'player-row';
@@ -614,6 +619,22 @@
       renderAll();
     }
 
+    function advanceTurn() {
+  const game = state.activeGame;
+  
+  // Pause brief moment if desired, then clear UI for next player/round
+  clearDartDisplays();
+
+  game.currentDartIndex = 0;
+  game.currentPlayerIndex = (game.currentPlayerIndex + 1) % game.players.length;
+
+  // If back to player 1, increment round/possession
+  if (game.currentPlayerIndex === 0) {
+    game.currentRound++;
+  }
+
+  renderAll();
+}
     function finalizeRound() {
       const game = state.activeGame;
       if (!game) return;
