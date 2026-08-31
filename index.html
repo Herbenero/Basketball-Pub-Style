@@ -29,10 +29,9 @@
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(245, 166, 35, 0.15), transparent 28%),
-        radial-gradient(circle at top right, rgba(126, 200, 227, 0.14), transparent 22%),
-        linear-gradient(180deg, #071523 0%, #0a1a2a 100%);
+      background: radial-gradient(circle at top left, rgba(245, 166, 35, 0.15), transparent 28%),
+                  radial-gradient(circle at top right, rgba(126, 200, 227, 0.14), transparent 22%),
+                  linear-gradient(180deg, #071523 0%, #0a1a2a 100%);
       color: var(--text);
       min-height: 100vh;
     }
@@ -42,18 +41,21 @@
       inset: 0;
       pointer-events: none;
       opacity: 0.07;
-      background:
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
       background-size: 28px 28px;
       mask-image: linear-gradient(180deg, rgba(0,0,0,0.9), rgba(0,0,0,0.25));
     }
     .wrap { width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }
     header.topbar {
-      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px);
-      background: rgba(7,21,38,0.75); border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(7,21,38,0.75);
+      border-bottom: 1px solid var(--line);
     }
-    .topbar-inner { display:flex; justify-content:space-between; align-items:center; gap:18px; padding:14px 0; }
+    .topbar-inner { display:flex; justify-space-between; align-items:center; gap:18px; padding:14px 0; }
     .brand { display:flex; flex-direction:column; gap:3px; }
     .eyebrow { font-family: 'Bebas Neue', cursive; letter-spacing:0.18em; text-transform:uppercase; font-size:0.8rem; color:var(--accent); }
     .title { margin:0; font-family: 'Bebas Neue', cursive; letter-spacing:0.04em; line-height:0.92; font-size: clamp(2.2rem, 5vw, 4.5rem); text-transform:uppercase; }
@@ -77,21 +79,42 @@
     .btn.ghost { background:transparent; box-shadow:none; }
     main { padding:30px 0 80px; }
     .hero { display:grid; grid-template-columns:1.05fr 0.95fr; gap:20px; margin-bottom:20px; }
-    .panel { border:1px solid var(--line); border-radius:var(--radius); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); box-shadow: var(--shadow); overflow:hidden; position:relative; padding:0; }
-    .panel::after { content:""; position:absolute; right:-80px; bottom:-80px; width:220px; height:220px; border-radius:50%; background:radial-gradient(circle, rgba(245,166,35,0.12), transparent 70%); pointer-events:none; }
+    .panel {
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      padding:0;
+    }
+    .panel::after {
+      content:""; position:absolute; right:-80px; bottom:-80px; width:220px; height:220px;
+      border-radius:50%; background:radial-gradient(circle, rgba(245,166,35,0.12), transparent 70%); pointer-events:none;
+    }
     .setup { padding:26px; display:flex; flex-direction:column; gap:18px; }
     .section-title { margin:0; font-family:'Bebas Neue', cursive; letter-spacing:0.05em; font-size:clamp(1.5rem,3vw,2.2rem); text-transform:uppercase; }
     .muted { color:var(--muted); }
     .setup-grid { display:grid; grid-template-columns:1fr auto; gap:16px; align-items:start; }
     .player-list { display:flex; flex-direction:column; gap:10px; padding-right:4px; }
     .player-row { display:grid; grid-template-columns:1fr auto; gap:10px; }
-    .input, .date-input { width:100%; background:rgba(0,0,0,0.18); border:1px solid var(--line); color:var(--text); padding:14px 16px; border-radius:14px; outline:none; transition:border-color .18s ease, box-shadow .18s ease; }
-    .input:focus, .date-input:focus { border-color: rgba(245,166,35,0.5); box-shadow: 0 0 0 4px rgba(245,166,35,0.1); }
+    .input, .date-input, select.input {
+      width:100%;
+      background:rgba(0,0,0,0.18);
+      border:1px solid var(--line);
+      color:var(--text);
+      padding:14px 16px;
+      border-radius:14px;
+      outline:none;
+      transition:border-color .18s ease, box-shadow .18s ease;
+    }
+    select.input option { background: #0b1a2a; color: var(--text); }
+    .input:focus, .date-input:focus, select.input:focus { border-color: rgba(245,166,35,0.5); box-shadow: 0 0 0 4px rgba(245,166,35,0.1); }
     .setup-side { min-width:190px; display:flex; flex-direction:column; gap:12px; padding:26px; }
     .facts { padding:26px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; align-content:start; }
     .fact { padding:18px; border-radius:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); }
     .fact .k { color:var(--accent); text-transform:uppercase; letter-spacing:0.14em; font-size:0.78rem; font-weight:800; }
-    .fact .v { margin-top:8px; font-size:1.35rem; font-weight:800; }
+    .fact .v { margin-top:8px; font-size:1.1rem; font-weight:800; line-height:1.3; }
     .game-layout { display:grid; grid-template-columns:1.08fr 0.92fr; gap:20px; align-items:start; margin-top:20px; }
     .scoreboard { padding:22px; }
     .scoreboard-head { display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap; margin-bottom:18px; padding:22px 22px 0 22px; }
@@ -110,13 +133,12 @@
     .dart-box { min-height:84px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,0.03); padding:14px; display:flex; flex-direction:column; justify-content:center; gap:6px; }
     .dart-box .n { color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; font-size:0.75rem; }
     .dart-box .v { font-weight:800; font-size:1.05rem; }
-    .selection { display:grid; gap:14px; padding:0 0 0 0; }
+    .selection { display:grid; gap:14px; padding:0; }
     .multiplier-row, .action-row { display:flex; flex-wrap:wrap; gap:10px; }
     .pill-btn { border-radius:14px; padding:12px 14px; border:1px solid var(--line); background:rgba(255,255,255,0.04); color:var(--text); cursor:pointer; font-weight:800; transition:.18s ease; }
     .pill-btn.active { background: linear-gradient(135deg, var(--accent), #d67e00); border-color:transparent; color:white; }
     .number-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px; }
     .num-btn { padding:14px 0; border-radius:16px; border:1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); color:var(--text); font-weight:800; cursor:pointer; }
-    .num-btn.target { background: linear-gradient(180deg, rgba(126,200,227,0.26), rgba(255,255,255,0.03)); border-color: rgba(126,200,227,0.34); color:#e6f0fa; box-shadow: 0 14px 26px rgba(0,0,0,0.18); }
     .history-log { border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:8px; margin-top:4px; }
     .log-item { display:flex; justify-content:space-between; gap:12px; padding-bottom:8px; border-bottom:1px dashed rgba(255,255,255,0.06); color:var(--muted); font-size:0.95rem; }
     .calendar-layout { display:grid; grid-template-columns:0.95fr 1.05fr; gap:20px; margin-top:20px; }
@@ -145,8 +167,18 @@
     .stagger > *:nth-child(5) { animation-delay:0.33s; }
     @keyframes rise { to { opacity:1; transform:translateY(0); } }
     @media (max-width:1100px) { .hero, .game-layout, .calendar-layout, .final-grid { grid-template-columns:1fr; } }
-    @media (max-width:760px) { .topbar-inner { flex-direction:column; align-items:flex-start; } .top-actions { width:100%; justify-content:flex-start; } .setup-grid { grid-template-columns:1fr; } .player-row { grid-template-columns:1fr; } .number-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
-    @media (max-width:520px) { .facts { grid-template-columns:1fr; } .dart-strip { grid-template-columns:1fr; } .number-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+    @media (max-width:760px) {
+      .topbar-inner { flex-direction:column; align-items:flex-start; }
+      .top-actions { width:100%; justify-content:flex-start; }
+      .setup-grid { grid-template-columns:1fr; }
+      .player-row { grid-template-columns:1fr; }
+      .number-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    }
+    @media (max-width:520px) {
+      .facts { grid-template-columns:1fr; }
+      .dart-strip { grid-template-columns:1fr; }
+      .number-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    }
   </style>
 </head>
 <body>
@@ -172,9 +204,8 @@
           <div>
             <p class="eyebrow">Game Setup</p>
             <h2 class="section-title">Players & Match Controls</h2>
-            <p class="muted">Add players. Each round is 3 darts, 6 possessions per quarter, 4 quarters total. Score points by hitting board segments with HBA style values.</p>
+            <p class="muted">Add players. Each round is 3 darts, 6 possessions per quarter, 4 quarters total. Select your board configuration and start playing.</p>
           </div>
-
           <div class="setup-grid">
             <div>
               <div id="playerList" class="player-list"></div>
@@ -183,9 +214,14 @@
                 <button class="btn primary" id="startGameBtn">Start Game</button>
               </div>
             </div>
-
             <div class="setup-side">
-              <label for="playedDate" class="eyebrow" style="font-size:.72rem;">Played date</label>
+              <label for="boardTypeSelect" class="eyebrow" style="font-size:.72rem;">Board Type</label>
+              <select id="boardTypeSelect" class="input">
+                <option value="basic">Basic Board</option>
+                <option value="quad">Quad Board</option>
+              </select>
+
+              <label for="playedDate" class="eyebrow" style="font-size:.72rem; margin-top:6px;">Played date</label>
               <input id="playedDate" class="date-input" type="date" />
               <button class="btn ghost" id="todayBtn">Use Today</button>
               <div class="muted" style="font-size:.9rem;">Used when saving the finished game to history.</div>
@@ -204,12 +240,12 @@
           <div class="v">6</div>
         </div>
         <div class="fact">
-          <div class="k">Scoring</div>
-          <div class="v">Bull=6, Double=5, Triple=4, Inner Single=2, Outer Single=3, Miss=0</div>
+          <div class="k">Scoring (Basic)</div>
+          <div class="v" id="factScoringBasic">Bull=6, Double=5, Triple=4, Inner=2, Outer=3</div>
         </div>
         <div class="fact">
-          <div class="k">Storage</div>
-          <div class="v">Local</div>
+          <div class="k">Scoring (Quad)</div>
+          <div class="v" id="factScoringQuad">Bull=10, Double=8, Quad=7, Triple=6, Inner=2, Middle=3, Outer=4</div>
         </div>
       </aside>
     </section>
@@ -227,7 +263,6 @@
             <div class="round-badge" id="roundBadge">Round 1</div>
           </div>
         </div>
-
         <div style="overflow:auto; padding:0 22px 22px 22px;">
           <table>
             <thead>
@@ -241,7 +276,6 @@
             <tbody id="scoreboardBody"></tbody>
           </table>
         </div>
-
         <div class="history-log" style="padding:0 22px 22px 22px;">
           <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
             <h3 class="section-title" style="font-size:1.05rem;">Play Log</h3>
@@ -263,7 +297,6 @@
             <div class="tag" id="dartsLeftTag">Darts Left: 3</div>
           </div>
         </div>
-
         <div class="dart-strip" style="padding: 0 22px;">
           <div class="dart-box">
             <div class="n">Dart 1</div>
@@ -278,24 +311,11 @@
             <div class="v" id="dartDisplay3">—</div>
           </div>
         </div>
-
         <div class="selection" style="padding: 22px;">
           <div>
             <p class="eyebrow" style="font-size:.72rem;">Segment</p>
-            <div class="multiplier-row" id="multiplierRow">
- <button class="pill-btn" data-multiplier="bull">Bull</button>
- <button class="pill-btn" data-multiplier="outer_single">Outer Single</button>
- <button class="pill-btn" data-multiplier="inner_single">Inner Single</button>
- <button class="pill-btn" data-multiplier="2">Double</button> <!-- Change '2' to 'double' if your logic expects it -->
- <button class="pill-btn" data-multiplier="3">Triple</button> <!-- Change '3' to 'triple' if your logic expects it -->
-</div>
+            <div class="multiplier-row" id="multiplierRow"></div>
           </div>
-
-          <div>
-            <p class="eyebrow" style="font-size:.72rem;">Targets</p>
-            <div class="number-grid" id="numberGrid"></div>
-          </div>
-
           <div>
             <p class="eyebrow" style="font-size:.72rem;">Actions</p>
             <div class="action-row">
@@ -393,8 +413,6 @@
               <th>Losses</th>
               <th>Win %</th>
               <th>Elo</th>
-              <th>Marks</th>
-              <th>Rounds</th>
               <th>PPG</th>
               <th>PPQ</th>
             </tr>
@@ -412,13 +430,29 @@
       leaderboard: 'basketball_darts_leaderboard_v1'
     };
 
-    const SCORING = {
+    const BOARD_TYPES = {
+      BASIC: 'basic',
+      QUAD: 'quad'
+    };
+
+    const SCORING_BASIC = {
       miss: 0,
       bull: 6,
       double: 5,
       triple: 4,
       inner_single: 2,
       outer_single: 3
+    };
+
+    const SCORING_QUAD = {
+      miss: 0,
+      bull: 10,
+      double: 8,
+      quad: 7,
+      triple: 6,
+      inner: 2,
+      middle: 3,
+      outer: 4
     };
 
     const MAX_QUARTERS = 4;
@@ -444,9 +478,7 @@
       return `${d.getFullYear()}-${m}-${day}`;
     }
 
-    function clone(obj) {
-      return JSON.parse(JSON.stringify(obj));
-    }
+    function clone(obj) { return JSON.parse(JSON.stringify(obj)); }
 
     function escapeHtml(str = '') {
       return String(str)
@@ -464,9 +496,6 @@
     }
 
     function saveStorage() {
-      if (state.activeGame) {
-        // keep game state inside activeGame
-      }
       localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(state.history));
       localStorage.setItem(STORAGE_KEYS.leaderboard, JSON.stringify(state.leaderboard));
       localStorage.setItem(STORAGE_KEYS.activeGame, JSON.stringify(state.activeGame));
@@ -503,10 +532,11 @@
       return new Set(names.map(n => n.toLowerCase())).size === names.length;
     }
 
-    function createNewGame(names) {
+    function createNewGame(names, boardType = BOARD_TYPES.BASIC) {
       return {
         id: (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()),
         date: $('playedDate').value || todayStr(),
+        boardType: boardType,
         players: names.map(name => ({
           name,
           totalPoints: 0,
@@ -524,9 +554,7 @@
         dartsThisRound: [],
         turnLog: [],
         status: 'active',
-        winner: null,
-        clockRemaining: 20 * 60,
-        clockRunning: false
+        winner: null
       };
     }
 
@@ -540,9 +568,16 @@
         alert('Player names must be unique.');
         return;
       }
-      state.activeGame = createNewGame(names);
+
+      const selectedBoard = $('boardTypeSelect') ? $('boardTypeSelect').value : BOARD_TYPES.BASIC;
+      
+      state.activeGame = createNewGame(names, selectedBoard);
       state.finishedGamePending = null;
       state.snapshots = [clone(state.activeGame)];
+
+      // Adjust default selected multiplier based on board type
+      state.selectedMultiplier = selectedBoard === BOARD_TYPES.QUAD ? 'outer' : 'outer_single';
+
       saveStorage();
       renderAll();
     }
@@ -557,88 +592,80 @@
     }
 
     function scoringValue(mult) {
-      if (mult === 'bull') return SCORING.bull;
-      if (mult === '2') return SCORING.double;
-      if (mult === '3') return SCORING.triple;
-      if (mult === 'inner_single') return SCORING.inner_single;
-      if (mult === 'outer_single') return SCORING.outer_single;
-      return SCORING.miss;
+      const isQuad = state.activeGame && state.activeGame.boardType === BOARD_TYPES.QUAD;
+
+      if (isQuad) {
+        return SCORING_QUAD[mult] !== undefined ? SCORING_QUAD[mult] : 0;
+      }
+
+      if (mult === 'bull') return SCORING_BASIC.bull;
+      if (mult === '2' || mult === 'double') return SCORING_BASIC.double;
+      if (mult === '3' || mult === 'triple') return SCORING_BASIC.triple;
+      if (mult === 'inner_single') return SCORING_BASIC.inner_single;
+      if (mult === 'outer_single') return SCORING_BASIC.outer_single;
+
+      return SCORING_BASIC.miss;
     }
 
     function multiplierLabel(mult) {
-      if (mult === 'bull') return 'Bull';
-      if (mult === '2') return 'Double';
-      if (mult === '3') return 'Triple';
-      if (mult === 'inner_single') return 'Inner Single';
-      if (mult === 'outer_single') return 'Outer Single';
-      return 'Miss';
+      const labels = {
+        bull: 'Bull',
+        double: 'Double',
+        '2': 'Double',
+        quad: 'Quad',
+        triple: 'Triple',
+        '3': 'Triple',
+        inner: 'Inner',
+        inner_single: 'Inner Single',
+        middle: 'Middle',
+        outer: 'Outer',
+        outer_single: 'Outer Single',
+        miss: 'Miss'
+      };
+      return labels[mult] || 'Miss';
     }
 
-        function throwDart(base, mult, isMiss = false) {
+    function throwDart(mult, isMiss = false) {
       const game = state.activeGame;
       if (!game || game.status !== 'active') return;
-      if (typeof game.currentDartIndex !== 'number') game.currentDartIndex = 0;
-      if (game.currentDartIndex >= DARTS_PER_ROUND) return;
 
       snapshot();
 
+      const effectiveMult = isMiss ? 'miss' : mult;
+      const pts = isMiss ? 0 : scoringValue(effectiveMult);
       const player = getCurrentPlayer();
-      if (!player) return;
 
-      const dartOrder = game.currentDartIndex + 1;
-      const label = isMiss ? 'Miss' : `${multiplierLabel(mult)} ${base === 25 ? 'Bull' : base}`;
-      const points = isMiss ? 0 : scoringValue(mult);
+      const dartObj = {
+        mult: effectiveMult,
+        points: pts,
+        label: multiplierLabel(effectiveMult)
+      };
 
-      game.turnLog.unshift({
-        quarter: game.currentQuarter,
-        possession: game.currentRound,
-        round: game.currentRound,
-        player: player.name,
-        text: `Dart ${dartOrder}: ${label} (${points} pts)`,
-        timestamp: Date.now()
-      });
-
-      player.totalPoints += points;
-      player.pointsPerQuarter[game.currentQuarter - 1] += points;
-
-      if (!player.pointsPerRound[game.currentRound - 1]) player.pointsPerRound[game.currentRound - 1] = 0;
-      player.pointsPerRound[game.currentRound - 1] += points;
-
+      game.dartsThisRound.push(dartObj);
+      player.totalPoints += pts;
+      player.pointsPerQuarter[game.currentQuarter - 1] += pts;
       game.currentDartIndex++;
 
-      if (game.currentDartIndex >= DARTS_PER_ROUND) {
-        finalizeRound();
-      }
+      game.turnLog.unshift(`${player.name} threw ${dartObj.label} (+${pts} pts)`);
 
-      saveStorage();
-      renderAll();
-    }
+      if (game.dartsThisRound.length === DARTS_PER_ROUND) {
+        const roundPts = game.dartsThisRound.reduce((acc, d) => acc + d.points, 0);
+        player.pointsPerRound.push(roundPts);
+        player.roundsPlayed++;
 
-    function finalizeRound() {
-      const game = state.activeGame;
-      if (!game) return;
+        game.dartsThisRound = [];
+        game.currentDartIndex = 0;
+        game.currentPlayerIndex++;
 
-      const player = game.players[(game.currentPlayerIndex + game.players.length) % game.players.length];
-      // increment rounds played for the player who just finished
-      const lastPlayerIndex = (game.currentPlayerIndex) % game.players.length;
-      if (game.players[lastPlayerIndex]) game.players[lastPlayerIndex].roundsPlayed++;
+        if (game.currentPlayerIndex >= game.players.length) {
+          game.currentPlayerIndex = 0;
+          game.currentPossession++;
 
-      game.currentDartIndex = 0;
-      game.currentPlayerIndex = (game.currentPlayerIndex + 1) % game.players.length;
-
-      // if we wrapped back to first player, it's a new possession/round
-      if (game.currentPlayerIndex === 0) {
-        game.currentRound++;
-        game.currentPossession = game.currentRound;
-        if (game.currentRound > POSSESSIONS_PER_QUARTER) {
-          // show MVP for the quarter just completed
-          showQuarterMVP();
-          game.currentRound = 1;
-          game.currentPossession = 1;
-          game.currentQuarter++;
-          if (game.currentQuarter > MAX_QUARTERS) {
-            endGame();
+          if (game.currentPossession > POSSESSIONS_PER_QUARTER) {
+            triggerQuarterEnd();
             return;
+          } else {
+            game.currentRound++;
           }
         }
       }
@@ -647,119 +674,94 @@
       renderAll();
     }
 
-    function showQuarterMVP() {
+    function triggerQuarterEnd() {
       const game = state.activeGame;
-      if (!game) return;
+      showQuarterModal(game.currentQuarter);
 
-      const quarter = game.currentQuarter;
-      const players = game.players.map(p => {
-        const totalQ = p.pointsPerQuarter[quarter - 1] || 0;
-        // For bestRound, use pointsPerRound entries that fall within this quarter's possession range.
-        // This implementation keeps per-round data linear; we will approximate best round by searching p.pointsPerRound
-        // for the highest value (no strict partitioning required here).
-        const bestRound = p.pointsPerRound.length ? Math.max(...p.pointsPerRound) : 0;
-               return { name: p.name, totalQ, bestRound };
-      });
-
-      players.sort((a, b) => b.weighted - a.weighted);
-      const mvp = players[0];
-
-      const modal = $('quarterModal');
-      if (!modal) return;
-      $('quarterMVPContent').innerHTML = `
-        <p><strong>${escapeHtml(mvp.name)}</strong> is the MVP of Quarter ${quarter}!</p>
-        <p>Total Points: ${mvp.totalQ}</p>
-        <p>Best Round: ${mvp.bestRound}</p>
-              `;
-      openModal(modal);
-    }
-
-    function endGame() {
-      const game = state.activeGame;
-      if (!game) return;
-      const maxPoints = Math.max(...game.players.map(p => p.totalPoints));
-      const winners = game.players.filter(p => p.totalPoints === maxPoints).map(p => p.name);
-      game.winner = winners.join(' / ');
-      game.status = 'finished-pending';
-      state.finishedGamePending = clone(game);
-      openFinalModal();
-      saveStorage();
-    }
-
-    function undoLast() {
-      if (state.snapshots.length > 1) {
-        state.snapshots.pop();
-        state.activeGame = clone(state.snapshots[state.snapshots.length - 1]);
+      if (game.currentQuarter >= MAX_QUARTERS) {
+        finishGame();
+      } else {
+        game.currentQuarter++;
+        game.currentPossession = 1;
+        game.currentRound++;
         saveStorage();
         renderAll();
       }
     }
 
-    function openFinalModal() {
-      const game = state.finishedGamePending;
-      if (!game) return;
-      const sorted = [...game.players].sort((a, b) => b.totalPoints - a.totalPoints);
+    function finishGame() {
+      const game = state.activeGame;
+      game.status = 'finished';
 
-      $('finalContent').innerHTML = `
-        <div class="final-grid">
-          <div class="final-box">
-            <div class="eyebrow">Winner</div>
-            <h3 class="section-title" style="font-size:2rem;">${escapeHtml(game.winner)}</h3>
-            <p class="muted">Highest total points after ${MAX_QUARTERS} quarters.</p>
-            <p class="muted">Played on ${escapeHtml(game.date)}</p>
-          </div>
-          <div class="final-box">
-            <div class="eyebrow">Game Summary</div>
-            <p class="muted">HBA style scoring: Bull=6, Double=5, Triple=4, Inner Single=2, Outer Single=3, Miss=0.</p>
-          </div>
-        </div>
-        <div class="final-box" style="margin-top:18px;">
-          <div class="eyebrow">Final Scoreboard</div>
-          <div style="overflow:auto; margin-top:10px;">
-            <table>
-              <thead>
-                <tr>
-                  <th>Player</th>
-                  <th>Total Points</th>
-                  <th>Points Per Quarter</th>
-                  <th>Points Per Game</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${sorted.map(p => `
-                  <tr>
-                    <td>${escapeHtml(p.name)}</td>
-                    <td>${p.totalPoints}</td>
-                    <td>${p.pointsPerQuarter.map(q => q || 0).join(' / ')}</td>
-                    <td>${(p.totalPoints / (p.roundsPlayed || 1)).toFixed(2)}</td>
-                  </tr>
-                `).join('')}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      `;
-      openModal($('finalModal'));
+      let maxPts = -1;
+      let winners = [];
+      game.players.forEach(p => {
+        if (p.totalPoints > maxPts) {
+          maxPts = p.totalPoints;
+          winners = [p.name];
+        } else if (p.totalPoints === maxPts) {
+          winners.push(p.name);
+        }
+      });
+
+      game.winner = winners.join(', ');
+      state.finishedGamePending = clone(game);
+      saveStorage();
+      renderAll();
+      showFinalModal();
     }
 
-    function openModal(el) {
-      if (!el) return;
-      el.classList.add('open');
-      el.setAttribute('aria-hidden', 'false');
+    function undo() {
+      if (state.snapshots.length <= 1) return;
+      state.snapshots.pop(); // discard current state
+      state.activeGame = clone(state.snapshots[state.snapshots.length - 1]);
+      saveStorage();
+      renderAll();
     }
 
-    function closeModal(el) {
-      if (!el) return;
-      el.classList.remove('open');
-      el.setAttribute('aria-hidden', 'true');
+    function renderMultiplierRow() {
+      const container = $('multiplierRow');
+      if (!container) return;
+
+      const isQuad = state.activeGame && state.activeGame.boardType === BOARD_TYPES.QUAD;
+
+      if (isQuad) {
+        container.innerHTML = `
+          <button class="pill-btn ${state.selectedMultiplier === 'bull' ? 'active' : ''}" data-multiplier="bull">Bull</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'outer' ? 'active' : ''}" data-multiplier="outer">Outer</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'middle' ? 'active' : ''}" data-multiplier="middle">Middle</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'inner' ? 'active' : ''}" data-multiplier="inner">Inner</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'double' ? 'active' : ''}" data-multiplier="double">Double</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'triple' ? 'active' : ''}" data-multiplier="triple">Triple</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'quad' ? 'active' : ''}" data-multiplier="quad">Quad</button>
+        `;
+      } else {
+        container.innerHTML = `
+          <button class="pill-btn ${state.selectedMultiplier === 'bull' ? 'active' : ''}" data-multiplier="bull">Bull</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'outer_single' ? 'active' : ''}" data-multiplier="outer_single">Outer Single</button>
+          <button class="pill-btn ${state.selectedMultiplier === 'inner_single' ? 'active' : ''}" data-multiplier="inner_single">Inner Single</button>
+          <button class="pill-btn ${state.selectedMultiplier === '2' || state.selectedMultiplier === 'double' ? 'active' : ''}" data-multiplier="2">Double</button>
+          <button class="pill-btn ${state.selectedMultiplier === '3' || state.selectedMultiplier === 'triple' ? 'active' : ''}" data-multiplier="3">Triple</button>
+        `;
+      }
+
+      container.querySelectorAll('.pill-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedMultiplier = btn.dataset.multiplier;
+          renderMultiplierRow();
+          $('selectedMultiplierTag').textContent = `Selected: ${multiplierLabel(state.selectedMultiplier)}`;
+          throwDart(state.selectedMultiplier, false);
+        });
+      });
     }
 
     function renderScoreboard() {
-      const tbody = $('scoreboardBody');
-      tbody.innerHTML = '';
+      const body = $('scoreboardBody');
+      if (!body) return;
+
       const game = state.activeGame;
       if (!game) {
-        tbody.innerHTML = `<tr><td colspan="4"><div class="empty">No active game. Add players and start a live game.</div></td></tr>`;
+        body.innerHTML = `<tr><td colspan="4" class="empty">No active game. Add players and start a live game.</td></tr>`;
         $('quarterBadge').textContent = 'Q1';
         $('possessionBadge').textContent = 'Possession 1';
         $('roundBadge').textContent = 'Round 1';
@@ -767,385 +769,294 @@
       }
 
       $('quarterBadge').textContent = `Q${game.currentQuarter}`;
-      $('possessionBadge').textContent = `Possession ${game.currentPossession || game.currentRound}`;
+      $('possessionBadge').textContent = `Possession ${game.currentPossession}`;
       $('roundBadge').textContent = `Round ${game.currentRound}`;
 
-      game.players.forEach((p, idx) => {
-        const tr = document.createElement('tr');
-        if (idx === game.currentPlayerIndex && game.status === 'active') tr.className = 'active-row';
-
-        const pointsThisQuarter = p.pointsPerQuarter[game.currentQuarter - 1] || 0;
-        const pointsThisRound = p.pointsPerRound[game.currentRound - 1] || 0;
-
-        tr.innerHTML = `
-          <td><strong>${escapeHtml(p.name)}</strong></td>
-          <td><span class="score-pill">${p.totalPoints}</span></td>
-          <td>${pointsThisQuarter}</td>
-          <td>${pointsThisRound}</td>
+      body.innerHTML = game.players.map((p, idx) => {
+        const isActive = idx === game.currentPlayerIndex && game.status === 'active';
+        const pointsThisRound = isActive ? game.dartsThisRound.reduce((a, b) => a + b.points, 0) : 0;
+        return `
+          <tr class="${isActive ? 'active-row' : ''}">
+            <td><strong>${escapeHtml(p.name)}</strong></td>
+            <td><span class="score-pill">${p.totalPoints}</span></td>
+            <td>${p.pointsPerQuarter[game.currentQuarter - 1] || 0}</td>
+            <td>${pointsThisRound}</td>
+          </tr>
         `;
-        tbody.appendChild(tr);
-      });
+      }).join('');
     }
 
     function renderTurnPanel() {
       const game = state.activeGame;
-      if (!game) {
+      if (!game || game.status !== 'active') {
         $('currentPlayerName').textContent = 'No game active';
-        $('currentPlayerSub').textContent = 'Add players and start a game.';
-        $('selectedMultiplierTag').textContent = `Selected: ${multiplierLabel(state.selectedMultiplier)}`;
-        $('dartsLeftTag').textContent = `Darts Left: ${DARTS_PER_ROUND}`;
-        ['1','2','3'].forEach(n => $(`dartDisplay${n}`).textContent = '—');
-        updateNumberGridHighlight();
+        $('currentPlayerSub').textContent = 'Start a game to begin.';
+        $('selectedMultiplierTag').textContent = 'Selected: Outer Single';
+        $('dartsLeftTag').textContent = 'Darts Left: 3';
+        $('dartDisplay1').textContent = '—';
+        $('dartDisplay2').textContent = '—';
+        $('dartDisplay3').textContent = '—';
         return;
       }
 
       const player = getCurrentPlayer();
-      $('currentPlayerName').textContent = player ? player.name : 'Waiting...';
-      $('currentPlayerSub').textContent = `Round ${game.currentRound}, Possession ${game.currentPossession}, Quarter ${game.currentQuarter}`;
+      $('currentPlayerName').textContent = player.name;
+      $('currentPlayerSub').textContent = `Quarter ${game.currentQuarter} • Possession ${game.currentPossession}`;
       $('selectedMultiplierTag').textContent = `Selected: ${multiplierLabel(state.selectedMultiplier)}`;
-      $('dartsLeftTag').textContent = `Darts Left: ${DARTS_PER_ROUND - (game.currentDartIndex || 0)}`;
+      $('dartsLeftTag').textContent = `Darts Left: ${DARTS_PER_ROUND - game.dartsThisRound.length}`;
 
-      const darts = game.turnLog
-        .filter(x => x.player === (player ? player.name : '') && x.round === game.currentRound)
-        .slice(0, DARTS_PER_ROUND)
-        .reverse();
+      $('dartDisplay1').textContent = game.dartsThisRound[0] ? `${game.dartsThisRound[0].label} (${game.dartsThisRound[0].points})` : '—';
+      $('dartDisplay2').textContent = game.dartsThisRound[1] ? `${game.dartsThisRound[1].label} (${game.dartsThisRound[1].points})` : '—';
+      $('dartDisplay3').textContent = game.dartsThisRound[2] ? `${game.dartsThisRound[2].label} (${game.dartsThisRound[2].points})` : '—';
 
-      for (let i = 0; i < DARTS_PER_ROUND; i++) {
-        $(`dartDisplay${i + 1}`).textContent = darts[i] ? darts[i].text.split(': ')[1]?.split(' (')[0] || 'Thrown' : '—';
-      }
-
-      updateNumberGridHighlight();
+      renderMultiplierRow();
     }
 
-    function updateNumberGridHighlight() {
+    function renderPlayLog() {
+      const container = $('turnLog');
+      const summary = $('logSummary');
       const game = state.activeGame;
-      const grid = $('numberGrid');
-      if (!grid) return;
-      const children = [...grid.children];
-      children.forEach(btn => btn.classList.remove('target'));
-      if (!game) return;
-      // highlight all numbers as available targets
-      children.forEach(btn => btn.classList.add('target'));
-    }
 
-    function renderTurnLog() {
-      const game = state.activeGame;
-      $('turnLog').innerHTML = '';
-      if (!game || !game.turnLog.length) {
-        $('logSummary').textContent = 'No darts thrown yet.';
-        $('turnLog').innerHTML = `<div class="empty">Every dart throw will be logged here.</div>`;
+      if (!game || !game.turnLog || game.turnLog.length === 0) {
+        summary.textContent = 'No darts thrown yet.';
+        container.innerHTML = '';
         return;
       }
-      $('logSummary').textContent = `${game.turnLog.length} logged event${game.turnLog.length === 1 ? '' : 's'}`;
-      game.turnLog.slice(0, 12).forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'log-item';
-        div.innerHTML = `<span>Q${item.quarter} P${item.possession} R${item.round} · <strong>${escapeHtml(item.player)}</strong> · ${escapeHtml(item.text)}</span><span>${new Date(item.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`;
-        $('turnLog').appendChild(div);
-      });
+
+      summary.textContent = `${game.turnLog.length} throw(s) recorded`;
+      container.innerHTML = game.turnLog.slice(0, 10).map(log => `
+        <div class="log-item">
+          <span>${escapeHtml(log)}</span>
+        </div>
+      `).join('');
     }
 
     function renderHistory() {
-      const wrap = $('historyList');
-      wrap.innerHTML = '';
-      let games = [...state.history];
-      if (state.historyFilter) games = games.filter(g => g.date === state.historyFilter);
+      const list = $('historyList');
+      if (!list) return;
 
-      if (!games.length) {
-        wrap.innerHTML = `<div class="empty">No saved games for this view yet.</div>`;
+      const filtered = state.history.filter(g => {
+        if (!state.historyFilter) return true;
+        return g.date === state.historyFilter;
+      });
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<div class="empty">No played games found.</div>`;
         return;
       }
 
-      games.forEach(game => {
-        const item = document.createElement('div');
-        item.className = 'game-item';
-        const line = game.players.map(p => `${p.name}: ${p.totalPoints}`).join(' · ');
-        item.innerHTML = `
-          <div>
-            <h4>${escapeHtml(game.winner)} won on ${escapeHtml(game.date)}</h4>
-            <div class="mini">Players: ${escapeHtml(game.players.map(p => p.name).join(', '))}</div>
-            <div class="mini">Final: ${escapeHtml(line)}</div>
-          </div>
-          <div>
-            <button class="btn ghost view-game-btn">View</button>
+      list.innerHTML = filtered.map(g => {
+        const boardTag = g.boardType === 'quad' ? 'Quad Board' : 'Basic Board';
+        return `
+          <div class="game-item">
+            <div>
+              <h4>${escapeHtml(g.winner || 'Winner')} won (${boardTag})</h4>
+              <div class="mini">${g.date} • ${g.players.length} Players</div>
+            </div>
+            <div style="text-align:right;">
+              ${g.players.map(p => `<div class="mini">${escapeHtml(p.name)}: ${p.totalPoints} pts</div>`).join('')}
+            </div>
           </div>
         `;
-        item.querySelector('.view-game-btn').addEventListener('click', () => {
-          alert(
-            `Winner: ${game.winner}\nDate: ${game.date}\n\n` +
-            game.players.map(p => `${p.name} — Total Points: ${p.totalPoints}`).join('\n')
-          );
-        });
-        wrap.appendChild(item);
-      });
+      }).join('');
     }
 
-    function getSortedLeaderboard() {
-      const rows = Object.values(state.leaderboard || {}).map(p => {
-        const games = (p.wins || 0) + (p.losses || 0);
-        const winPct = games ? (p.wins / games * 100) : 0;
-        return {
-          name: p.name,
-          wins: p.wins || 0,
-          losses: p.losses || 0,
-          winPct,
-          elo: p.elo || 1000,
-          pointsPerGame: p.pointsPerGame ? (p.pointsPerGame / (games || 1)) : (p.pointsPerGame || 0),
-          pointsPerQuarter: p.pointsPerQuarter || 0,
-          marks: p.marks || 0,
-          rounds: p.rounds || 0
-        };
+    function updateLeaderboardData(game) {
+      if (!game || !game.players) return;
+
+      let maxPts = -1;
+      game.players.forEach(p => { if (p.totalPoints > maxPts) maxPts = p.totalPoints; });
+
+      game.players.forEach(p => {
+        if (!state.leaderboard[p.name]) {
+          state.leaderboard[p.name] = { wins: 0, losses: 0, points: 0, quarters: 0, elo: 1200 };
+        }
+        const stats = state.leaderboard[p.name];
+        const isWinner = p.totalPoints === maxPts;
+
+        if (isWinner) stats.wins += 1;
+        else stats.losses += 1;
+
+        stats.points += p.totalPoints;
+        stats.quarters += MAX_QUARTERS;
+
+        if (isWinner) stats.elo += 16;
+        else stats.elo = Math.max(800, stats.elo - 12);
       });
-      // sort by elo desc, then wins
-      rows.sort((a, b) => (b.elo - a.elo) || (b.wins - a.wins));
-      return rows;
     }
 
     function renderLeaderboard() {
-      const rows = getSortedLeaderboard();
-      const targets = [$('leaderboardBody'), $('leaderboardModalBody')];
+      const body = $('leaderboardBody');
+      const modalBody = $('leaderboardModalBody');
+      if (!body) return;
 
-      targets.forEach(target => {
-        target.innerHTML = '';
-        if (!rows.length) {
-          target.innerHTML = `<tr><td colspan="${target.id === 'leaderboardBody' ? 8 : 10}"><div class="empty">No completed games submitted yet.</div></td></tr>`;
-          return;
-        }
+      const players = Object.keys(state.leaderboard).map(name => {
+        const st = state.leaderboard[name];
+        const total = st.wins + st.losses;
+        const winPct = total > 0 ? ((st.wins / total) * 100).toFixed(1) : '0.0';
+        const ppg = total > 0 ? (st.points / total).toFixed(1) : '0.0';
+        const ppq = st.quarters > 0 ? (st.points / st.quarters).toFixed(1) : '0.0';
+        return { name, ...st, total, winPct, ppg, ppq };
+      }).sort((a, b) => b.elo - a.elo || b.wins - a.wins);
 
-        rows.forEach((p, i) => {
-          const tr = document.createElement('tr');
-          if (target.id === 'leaderboardBody') {
-            tr.innerHTML = `
-              <td class="rank">#${i + 1}</td>
-              <td>${escapeHtml(p.name)}</td>
-              <td>${p.wins}</td>
-              <td>${p.losses}</td>
-              <td>${p.winPct.toFixed(1)}%</td>
-              <td>${p.elo}</td>
-              <td>${(p.pointsPerGame || 0).toFixed(2)}</td>
-              <td>${(p.pointsPerQuarter || 0).toFixed(2)}</td>
-            `;
-          } else {
-            tr.innerHTML = `
-              <td class="rank">#${i + 1}</td>
-              <td>${escapeHtml(p.name)}</td>
-              <td>${p.wins}</td>
-              <td>${p.losses}</td>
-              <td>${p.winPct.toFixed(1)}%</td>
-              <td>${p.elo}</td>
-              <td>${p.marks}</td>
-              <td>${p.rounds}</td>
-              <td>${(p.pointsPerGame || 0).toFixed(2)}</td>
-              <td>${(p.pointsPerQuarter || 0).toFixed(2)}</td>
-            `;
-          }
-          target.appendChild(tr);
-        });
-      });
-    }
-
-    function ensureLeader(name) {
-      if (!state.leaderboard[name]) {
-        state.leaderboard[name] = {
-          name,
-          wins: 0,
-          losses: 0,
-          elo: 1000,
-          marks: 0,
-          rounds: 0,
-          pointsPerGame: 0,
-          pointsPerQuarter: 0
-        };
+      if (players.length === 0) {
+        const emptyRow = `<tr><td colspan="8" class="empty">No leaderboard data available.</td></tr>`;
+        body.innerHTML = emptyRow;
+        if (modalBody) modalBody.innerHTML = emptyRow;
+        return;
       }
-      return state.leaderboard[name];
+
+      const rowsHtml = players.map((p, i) => `
+        <tr>
+          <td class="rank">#${i + 1}</td>
+          <td><strong>${escapeHtml(p.name)}</strong></td>
+          <td>${p.wins}</td>
+          <td>${p.losses}</td>
+          <td>${p.winPct}%</td>
+          <td>${p.elo}</td>
+          <td>${p.ppg}</td>
+          <td>${p.ppq}</td>
+        </tr>
+      `).join('');
+
+      body.innerHTML = rowsHtml;
+      if (modalBody) modalBody.innerHTML = rowsHtml;
     }
 
-    function expectedScore(ra, rb) {
-      return 1 / (1 + Math.pow(10, (rb - ra) / 400));
-    }
+    function showQuarterModal(qNum) {
+      const modal = $('quarterModal');
+      const content = $('quarterMVPContent');
+      const game = state.activeGame;
 
-    function updateLeaderboardFromGame(game) {
-      const winnerName = game.winner;
-      const K = 24;
-
+      let mvp = null;
+      let maxPts = -1;
       game.players.forEach(p => {
-        const lp = ensureLeader(p.name);
-        lp.marks += p.totalPoints;
-        lp.rounds += p.roundsPlayed || 0;
-        lp.pointsPerGame += p.totalPoints;
-        lp.pointsPerQuarter += p.pointsPerQuarter.reduce((a,b) => a + (b||0), 0) / MAX_QUARTERS;
-        if (p.name === winnerName) lp.wins += 1;
-        else lp.losses += 1;
+        const qPts = p.pointsPerQuarter[qNum - 1] || 0;
+        if (qPts > maxPts) {
+          maxPts = qPts;
+          mvp = p;
+        }
       });
 
-      const winner = ensureLeader(winnerName);
-      game.players.forEach(p => {
-        if (p.name === winnerName) return;
-        const loser = ensureLeader(p.name);
-        const ew = expectedScore(winner.elo, loser.elo);
-        const el = expectedScore(loser.elo, winner.elo);
-        winner.elo = Math.round(winner.elo + K * (1 - ew));
-        loser.elo = Math.round(loser.elo + K * (0 - el));
-      });
+      content.innerHTML = `
+        <div class="final-box" style="text-align:center;">
+          <p class="eyebrow">Quarter ${qNum} MVP</p>
+          <h2 class="section-title" style="color:var(--gold);">${mvp ? escapeHtml(mvp.name) : 'N/A'}</h2>
+          <p style="font-size:1.4rem; font-weight:800; margin-top:8px;">${maxPts} Points Scored</p>
+        </div>
+      `;
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
     }
 
-    function submitFinishedGame() {
-      if (!state.finishedGamePending) return;
-      const game = clone(state.finishedGamePending);
-      game.status = 'final';
-      state.history.unshift(game);
-      updateLeaderboardFromGame(game);
-      state.activeGame = null;
-      state.finishedGamePending = null;
-      state.snapshots = [];
-      closeModal($('finalModal'));
-      saveStorage();
-      renderAll();
-    }
+    function showFinalModal() {
+      const modal = $('finalModal');
+      const content = $('finalContent');
+      const game = state.finishedGamePending || state.activeGame;
 
-    function discardFinishedGame() {
-      state.activeGame = null;
-      state.finishedGamePending = null;
-      state.snapshots = [];
-      closeModal($('finalModal'));
-      saveStorage();
-      renderAll();
-    }
+      if (!game) return;
 
-    // safe clock render - check for elements before touching them
-    function renderClock() {
-      const badge = $('clockBadge');
-      const fill = $('clockFill');
-      // if elements don't exist, just return quietly
-      if (!badge || !fill) return;
-      // placeholder formatting
-      const remaining = (state.activeGame && state.activeGame.clockRemaining) ? state.activeGame.clockRemaining : 20*60;
-      const minutes = Math.floor(remaining / 60).toString().padStart(2, '0');
-      const seconds = (remaining % 60).toString().padStart(2, '0');
-      badge.textContent = `${minutes}:${seconds}`;
-      const percent = ((20 * 60 - remaining) / (20 * 60)) * 100;
-      fill.style.width = `${percent}%`;
-    }
+      const sorted = [...game.players].sort((a, b) => b.totalPoints - a.totalPoints);
 
-    // wrapper for throws (keeps previous API)
-    function throwWrapper(base, mult, isMiss = false) {
-      throwDart(base, mult, isMiss);
+      content.innerHTML = `
+        <div class="final-grid">
+          <div class="final-box">
+            <p class="eyebrow">Winner</p>
+            <h3 class="section-title" style="color:var(--gold);">${escapeHtml(game.winner || sorted[0].name)}</h3>
+            <p class="muted">Board: ${game.boardType === 'quad' ? 'Quad Board' : 'Basic Board'}</p>
+          </div>
+          <div class="final-box">
+            <p class="eyebrow">Scores</p>
+            ${sorted.map(p => `
+              <div style="display:flex; justify-content:space-between; margin-top:8px;">
+                <span>${escapeHtml(p.name)}</span>
+                <strong>${p.totalPoints} pts</strong>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
     }
 
     function renderAll() {
       renderScoreboard();
       renderTurnPanel();
-      renderTurnLog();
+      renderPlayLog();
       renderHistory();
       renderLeaderboard();
     }
 
-    function setupEvents() {
+    // Event Listeners setup
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStorage();
+      initPlayerInputs();
+      if ($('playedDate')) $('playedDate').value = todayStr();
+
       $('addPlayerBtn').addEventListener('click', () => createPlayerInput(''));
       $('startGameBtn').addEventListener('click', startGame);
-      $('todayBtn').addEventListener('click', () => ($('playedDate').value = todayStr()));
-      $('playedDate').value = todayStr();
+      $('newGameBtn').addEventListener('click', () => { if (confirm('Start new game?')) startGame(); });
+      $('newGameBtnTop').addEventListener('click', () => { if (confirm('Start new game?')) startGame(); });
+      $('todayBtn').addEventListener('click', () => { $('playedDate').value = todayStr(); });
 
-      $('multiplierRow').addEventListener('click', (e) => {
-        const btn = e.target.closest('[data-multiplier]');
-        if (!btn) return;
-        state.selectedMultiplier = btn.dataset.multiplier;
-        [...$('multiplierRow').children].forEach(c => c.classList.remove('active'));
-        btn.classList.add('active');
-        renderTurnPanel();
-      });
-
-      $('missBtn').addEventListener('click', () => throwWrapper(0, state.selectedMultiplier, true));
-      $('undoBtn').addEventListener('click', () => undoLast());
-      $('newGameBtn').addEventListener('click', () => {
-        if (confirm('Start a new game? Current game will be cleared.')) {
-          state.activeGame = null;
-          state.finishedGamePending = null;
-          state.snapshots = [];
-          saveStorage();
-          renderAll();
-        }
-      });
-      // top new game button
-      $('newGameBtnTop').addEventListener('click', () => {
-        if (confirm('Start a new game? Current game will be cleared.')) {
-          state.activeGame = null;
-          state.finishedGamePending = null;
-          state.snapshots = [];
-          saveStorage();
-          renderAll();
-        }
-      });
+      $('missBtn').addEventListener('click', () => throwDart('miss', true));
+      $('undoBtn').addEventListener('click', undo);
 
       $('filterHistoryBtn').addEventListener('click', () => {
         state.historyFilter = $('historyDateFilter').value;
         renderHistory();
       });
       $('clearHistoryFilterBtn').addEventListener('click', () => {
-        state.historyFilter = '';
         $('historyDateFilter').value = '';
+        state.historyFilter = '';
         renderHistory();
       });
 
-      $('leaderboardBtn').addEventListener('click', () => openModal($('leaderboardModal')));
-      $('closeLeaderboardModal').addEventListener('click', () => closeModal($('leaderboardModal')));
-      $('showHistoryBtn').addEventListener('click', () => {
-        const panel = document.querySelector('.calendar-panel');
-        if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      $('closeQuarterModal').addEventListener('click', () => {
+        $('quarterModal').classList.remove('open');
+        $('quarterModal').setAttribute('aria-hidden', 'true');
       });
 
-      $('closeFinalModal').addEventListener('click', () => closeModal($('finalModal')));
-      $('submitFinishedGameBtn').addEventListener('click', submitFinishedGame);
-      $('discardFinishedGameBtn').addEventListener('click', discardFinishedGame);
-      $('closeQuarterModal').addEventListener('click', () => closeModal($('quarterModal')));
-
-      // close modals by clicking background
-      [$('finalModal'), $('leaderboardModal'), $('quarterModal')].forEach(modal => {
-        if (!modal) return;
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) closeModal(modal);
-        });
+      $('closeFinalModal').addEventListener('click', () => {
+        $('finalModal').classList.remove('open');
+        $('finalModal').setAttribute('aria-hidden', 'true');
       });
 
-      // delegated number-grid clicks
-      $('numberGrid').addEventListener('click', (e) => {
-        const btn = e.target.closest('.num-btn');
-        if (!btn) return;
-        const val = Number(btn.dataset.value);
-        throwWrapper(val, state.selectedMultiplier, false);
+      $('submitFinishedGameBtn').addEventListener('click', () => {
+        if (state.finishedGamePending) {
+          state.history.unshift(state.finishedGamePending);
+          updateLeaderboardData(state.finishedGamePending);
+          state.finishedGamePending = null;
+          state.activeGame = null;
+          saveStorage();
+          renderAll();
+        }
+        $('finalModal').classList.remove('open');
       });
-    }
 
-    function initReveal() {
-      if (!('IntersectionObserver' in window)) return;
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: 0.12 });
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-    }
+      $('discardFinishedGameBtn').addEventListener('click', () => {
+        state.finishedGamePending = null;
+        state.activeGame = null;
+        saveStorage();
+        renderAll();
+        $('finalModal').classList.remove('open');
+      });
 
-    // init
-    loadStorage();
-    initPlayerInputs();
-    setupEvents();
-    if (state.activeGame) state.snapshots = [clone(state.activeGame)];
-    renderAll();
-    initReveal();
-    document.addEventListener('DOMContentLoaded', () => {
-  const row = document.getElementById('multiplierRow');
-  if (row) {
-    row.addEventListener('click', (e) => {
-      const btn = e.target.closest('button');
-      if (!btn) return;
-      
-      const mult = btn.dataset.multiplier;
-      // Directly trigger a dart throw using the segment value
-      throwDart(0, mult, mult === 'miss');
+      $('leaderboardBtn').addEventListener('click', () => {
+        $('leaderboardModal').classList.add('open');
+      });
+      $('closeLeaderboardModal').addEventListener('click', () => {
+        $('leaderboardModal').classList.remove('open');
+      });
+
+      // Trigger initial animations
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+
+      renderAll();
     });
-  }
-});
   </script>
 </body>
 </html>
