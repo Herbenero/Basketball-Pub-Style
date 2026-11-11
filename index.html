@@ -48,136 +48,181 @@
     }
     .wrap { width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }
     header.topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      position: sticky; top: 0; z-index: 50;
       backdrop-filter: blur(14px);
       background: rgba(7,21,38,0.75);
       border-bottom: 1px solid var(--line);
     }
-    .topbar-inner { display:flex; justify-space-between; align-items:center; gap:18px; padding:14px 0; }
-    .brand { display:flex; flex-direction:column; gap:3px; }
-    .eyebrow { font-family: 'Bebas Neue', cursive; letter-spacing:0.18em; text-transform:uppercase; font-size:0.8rem; color:var(--accent); }
-    .title { margin:0; font-family: 'Bebas Neue', cursive; letter-spacing:0.04em; line-height:0.92; font-size: clamp(2.2rem, 5vw, 4.5rem); text-transform:uppercase; }
-    .subtitle { color:var(--muted); max-width:70ch; font-size:0.95rem; }
-    .top-actions { display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
+    .topbar-inner { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 14px 0; }
+    .brand { display: flex; flex-direction: column; gap: 3px; }
+    .eyebrow {
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+    .title {
+      margin: 0;
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 0.04em;
+      line-height: 0.92;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      text-transform: uppercase;
+    }
+    .subtitle { color: var(--muted); max-width: 70ch; font-size: 0.95rem; }
+    .top-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
     button, input, select { font: inherit; }
     .btn {
-      border:1px solid var(--line);
+      border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      color:var(--text);
-      padding:12px 16px;
-      border-radius:999px;
-      cursor:pointer;
-      font-weight:800;
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
       transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
       box-shadow: 0 10px 24px rgba(0,0,0,0.18);
     }
-    .btn.primary { background: linear-gradient(135deg, var(--accent), #d67e00); border-color:transparent; color:#fff; }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), #d67e00); border-color: transparent; color: #fff; }
     .btn.secondary { background: linear-gradient(135deg, rgba(126,200,227,0.22), rgba(126,200,227,0.12)); }
     .btn.warn { background: linear-gradient(135deg, rgba(239,93,93,0.22), rgba(239,93,93,0.12)); }
-    .btn.ghost { background:transparent; box-shadow:none; }
-    main { padding:30px 0 80px; }
-    .hero { display:grid; grid-template-columns:1.05fr 0.95fr; gap:20px; margin-bottom:20px; }
+    .btn.ghost { background: transparent; box-shadow: none; }
+    main { padding: 30px 0 80px; }
+    .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 20px; margin-bottom: 20px; }
     .panel {
-      border:1px solid var(--line);
-      border-radius:var(--radius);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
       background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-      padding:0;
+      overflow: hidden;
+      position: relative;
+      padding: 0;
     }
     .panel::after {
-      content:""; position:absolute; right:-80px; bottom:-80px; width:220px; height:220px;
-      border-radius:50%; background:radial-gradient(circle, rgba(245,166,35,0.12), transparent 70%); pointer-events:none;
+      content: ""; position: absolute; right: -80px; bottom: -80px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,166,35,0.12), transparent 70%);
+      pointer-events: none;
     }
-    .setup { padding:26px; display:flex; flex-direction:column; gap:18px; }
-    .section-title { margin:0; font-family:'Bebas Neue', cursive; letter-spacing:0.05em; font-size:clamp(1.5rem,3vw,2.2rem); text-transform:uppercase; }
-    .muted { color:var(--muted); }
-    .setup-grid { display:grid; grid-template-columns:1fr auto; gap:16px; align-items:start; }
-    .player-list { display:flex; flex-direction:column; gap:10px; padding-right:4px; }
-    .player-row { display:grid; grid-template-columns:1fr auto; gap:10px; }
+    .setup { padding: 26px; display: flex; flex-direction: column; gap: 18px; }
+    .section-title {
+      margin: 0;
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 0.05em;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      text-transform: uppercase;
+    }
+    .muted { color: var(--muted); }
+    .setup-grid { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; }
+    .player-list { display: flex; flex-direction: column; gap: 10px; padding-right: 4px; }
+    .player-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
     .input, .date-input, select.input {
-      width:100%;
-      background:rgba(0,0,0,0.18);
-      border:1px solid var(--line);
-      color:var(--text);
-      padding:14px 16px;
-      border-radius:14px;
-      outline:none;
-      transition:border-color .18s ease, box-shadow .18s ease;
+      width: 100%;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 14px 16px;
+      border-radius: 14px;
+      outline: none;
+      transition: border-color .18s ease, box-shadow .18s ease;
     }
     select.input option { background: #0b1a2a; color: var(--text); }
-    .input:focus, .date-input:focus, select.input:focus { border-color: rgba(245,166,35,0.5); box-shadow: 0 0 0 4px rgba(245,166,35,0.1); }
-    .setup-side { min-width:190px; display:flex; flex-direction:column; gap:12px; padding:26px; }
-    .facts { padding:26px; display:grid; grid-template-columns:repeat(2,1fr); gap:16px; align-content:start; }
-    .fact { padding:18px; border-radius:20px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); }
-    .fact .k { color:var(--accent); text-transform:uppercase; letter-spacing:0.14em; font-size:0.78rem; font-weight:800; }
-    .fact .v { margin-top:8px; font-size:1.1rem; font-weight:800; line-height:1.3; }
-    .game-layout { display:grid; grid-template-columns:1.08fr 0.92fr; gap:20px; align-items:start; margin-top:20px; }
-    .scoreboard { padding:22px; }
-    .scoreboard-head { display:flex; justify-content:space-between; align-items:flex-end; gap:14px; flex-wrap:wrap; margin-bottom:18px; padding:22px 22px 0 22px; }
-    .round-badge { padding:10px 14px; border-radius:999px; background: rgba(245,166,35,0.12); border:1px solid rgba(245,166,35,0.18); color:var(--gold); font-weight:800; letter-spacing:0.04em; text-transform:uppercase; font-size:0.86rem; }
-    table { width:100%; border-collapse: collapse; }
-    th, td { text-align:left; padding:12px 10px; border-bottom:1px solid var(--line); vertical-align:middle; }
-    th { color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; font-size:0.8rem; font-weight:700; }
-    .active-row { background: linear-gradient(90deg, rgba(245,166,35,0.14), transparent 78%); }
-    .score-pill { display:inline-flex; align-items:center; justify-content:center; min-width:56px; padding:8px 12px; border-radius:999px; background: rgba(255,255,255,0.06); font-weight:800; }
-    .turn-panel { padding:22px; display:flex; flex-direction:column; gap:18px; }
-    .turn-top { display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:flex-start; }
-    .current-player { margin:0; font-family:'Bebas Neue', cursive; letter-spacing:0.05em; line-height:0.92; font-size:clamp(2rem,4vw,3rem); }
-    .turn-meta { display:flex; gap:10px; flex-wrap:wrap; }
-    .tag { padding:10px 12px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,0.04); font-size:0.88rem; font-weight:700; }
-    .dart-strip { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-    .dart-box { min-height:84px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,0.03); padding:14px; display:flex; flex-direction:column; justify-content:center; gap:6px; }
-    .dart-box .n { color:var(--muted); text-transform:uppercase; letter-spacing:0.12em; font-size:0.75rem; }
-    .dart-box .v { font-weight:800; font-size:1.05rem; }
-    .selection { display:grid; gap:14px; padding:0; }
-    .multiplier-row, .action-row { display:flex; flex-wrap:wrap; gap:10px; }
-    .pill-btn { border-radius:14px; padding:12px 14px; border:1px solid var(--line); background:rgba(255,255,255,0.04); color:var(--text); cursor:pointer; font-weight:800; transition:.18s ease; }
-    .pill-btn.active { background: linear-gradient(135deg, var(--accent), #d67e00); border-color:transparent; color:white; }
-    .number-grid { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px; }
-    .num-btn { padding:14px 0; border-radius:16px; border:1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); color:var(--text); font-weight:800; cursor:pointer; }
-    .history-log { border-top:1px solid var(--line); padding-top:14px; display:flex; flex-direction:column; gap:8px; margin-top:4px; }
-    .log-item { display:flex; justify-content:space-between; gap:12px; padding-bottom:8px; border-bottom:1px dashed rgba(255,255,255,0.06); color:var(--muted); font-size:0.95rem; }
-    .calendar-layout { display:grid; grid-template-columns:0.95fr 1.05fr; gap:20px; margin-top:20px; }
-    .calendar-panel, .leader-panel { padding:22px; }
-    .calendar-controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin:14px 0 18px; }
-    .game-list { display:flex; flex-direction:column; gap:10px; max-height:470px; overflow:auto; padding-right:4px; }
-    .game-item { padding:16px; border-radius:18px; border:1px solid var(--line); background:rgba(255,255,255,0.03); display:flex; justify-content:space-between; gap:12px; align-items:flex-start; }
-    .game-item h4 { margin:0 0 6px; font-size:1rem; }
-    .mini { color:var(--muted); font-size:0.88rem; }
-    .leaderboard-table td:first-child { font-weight:800; }
-    .rank { font-family:'Bebas Neue', cursive; font-size:1.18rem; color:var(--gold); letter-spacing:0.04em; }
-    .modal { position:fixed; inset:0; z-index:100; display:none; align-items:center; justify-content:center; padding:20px; background:rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
-    .modal.open { display:flex; }
-    .modal-card { width:min(920px,100%); max-height:90vh; overflow:auto; border-radius:26px; border:1px solid var(--line); background: linear-gradient(180deg, #0b1a2a, #071523); box-shadow: var(--shadow); padding:24px; }
-    .modal-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:18px; }
-    .final-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-    .final-box { padding:16px; border-radius:18px; border:1px solid var(--line); background: rgba(255,255,255,0.03); }
-    .empty { color:var(--muted); border:1px dashed var(--line); border-radius:16px; padding:18px; text-align:center; }
-    .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
-    .reveal.visible { opacity:1; transform:translateY(0); }
-    .stagger > * { opacity:0; transform:translateY(14px); animation: rise .6s ease forwards; }
-    .stagger > *:nth-child(1) { animation-delay:0.05s; }
-    .stagger > *:nth-child(2) { animation-delay:0.12s; }
-    .stagger > *:nth-child(3) { animation-delay:0.19s; }
-    .stagger > *:nth-child(4) { animation-delay:0.26s; }
-    .stagger > *:nth-child(5) { animation-delay:0.33s; }
-    @keyframes rise { to { opacity:1; transform:translateY(0); } }
-    @media (max-width:1100px) { .hero, .game-layout, .calendar-layout, .final-grid { grid-template-columns:1fr; } }
-    @media (max-width:760px) {
-      .topbar-inner { flex-direction:column; align-items:flex-start; }
-      .top-actions { width:100%; justify-content:flex-start; }
-      .setup-grid { grid-template-columns:1fr; }
-      .player-row { grid-template-columns:1fr; }
-      .number-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .input:focus, .date-input:focus, select.input:focus {
+      border-color: rgba(245,166,35,0.5);
+      box-shadow: 0 0 0 4px rgba(245,166,35,0.1);
     }
-    @media (max-width:520px) {
-      .facts { grid-template-columns:1fr; }
-      .dart-strip { grid-template-columns:1fr; }
-      .number-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .setup-side { min-width: 190px; display: flex; flex-direction: column; gap: 12px; padding: 26px; }
+    .facts { padding: 26px; display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; align-content: start; }
+    .fact { padding: 18px; border-radius: 20px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+    .fact .k { color: var(--accent); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.78rem; font-weight: 800; }
+    .fact .v { margin-top: 8px; font-size: 1.1rem; font-weight: 800; line-height: 1.3; }
+    .game-layout { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 20px; align-items: start; margin-top: 20px; }
+    .scoreboard { padding: 22px; }
+    .scoreboard-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; padding: 22px 22px 0 22px; }
+    .round-badge {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(245,166,35,0.12);
+      border: 1px solid rgba(245,166,35,0.18);
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.86rem;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    th { color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; font-weight: 700; }
+    .active-row { background: linear-gradient(90deg, rgba(245,166,35,0.14), transparent 78%); }
+    .score-pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 56px; padding: 8px 12px; border-radius: 999px;
+      background: rgba(255,255,255,0.06); font-weight: 800;
+    }
+    .turn-panel { padding: 22px; display: flex; flex-direction: column; gap: 18px; }
+    .turn-top { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; align-items: flex-start; }
+    .current-player { margin: 0; font-family: 'Bebas Neue', cursive; letter-spacing: 0.05em; line-height: 0.92; font-size: clamp(2rem, 4vw, 3rem); }
+    .turn-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+    .tag { padding: 10px 12px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); font-size: 0.88rem; font-weight: 700; }
+    .dart-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .dart-box {
+      min-height: 84px; border-radius: 18px; border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03); padding: 14px; display: flex; flex-direction: column; justify-content: center; gap: 6px;
+    }
+    .dart-box .n { color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.75rem; }
+    .dart-box .v { font-weight: 800; font-size: 1.05rem; }
+    .selection { display: grid; gap: 14px; padding: 0; }
+    .multiplier-row, .action-row { display: flex; flex-wrap: wrap; gap: 10px; }
+    .pill-btn {
+      border-radius: 14px; padding: 12px 14px; border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04); color: var(--text); cursor: pointer; font-weight: 800; transition: .18s ease;
+    }
+    .pill-btn.active { background: linear-gradient(135deg, var(--accent), #d67e00); border-color: transparent; color: white; }
+    .number-grid { display: grid; grid-template-columns: repeat(7,minmax(0,1fr)); gap: 10px; }
+    .num-btn {
+      padding: 14px 0; border-radius: 16px; border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02)); color: var(--text); font-weight: 800; cursor: pointer;
+    }
+    .history-log { border-top: 1px solid var(--line); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+    .log-item { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.06); color: var(--muted); font-size: 0.95rem; }
+    .calendar-layout { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: 20px; margin-top: 20px; }
+    .calendar-panel, .leader-panel { padding: 22px; }
+    .calendar-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 14px 0 18px; }
+    .game-list { display: flex; flex-direction: column; gap: 10px; max-height: 470px; overflow: auto; padding-right: 4px; }
+    .game-item { padding: 16px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+    .game-item h4 { margin: 0 0 6px; font-size: 1rem; }
+    .mini { color: var(--muted); font-size: 0.88rem; }
+    .leaderboard-table td:first-child { font-weight: 800; }
+    .rank { font-family: 'Bebas Neue', cursive; font-size: 1.18rem; color: var(--gold); letter-spacing: 0.04em; }
+    .modal { position: fixed; inset: 0; z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
+    .modal.open { display: flex; }
+    .modal-card { width: min(920px,100%); max-height: 90vh; overflow: auto; border-radius: 26px; border: 1px solid var(--line); background: linear-gradient(180deg, #0b1a2a, #071523); box-shadow: var(--shadow); padding: 24px; }
+    .modal-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .final-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .final-box { padding: 16px; border-radius: 18px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
+    .empty { color: var(--muted); border: 1px dashed var(--line); border-radius: 16px; padding: 18px; text-align: center; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .stagger > * { opacity: 0; transform: translateY(14px); animation: rise .6s ease forwards; }
+    .stagger > *:nth-child(1) { animation-delay: 0.05s; }
+    .stagger > *:nth-child(2) { animation-delay: 0.12s; }
+    .stagger > *:nth-child(3) { animation-delay: 0.19s; }
+    .stagger > *:nth-child(4) { animation-delay: 0.26s; }
+    .stagger > *:nth-child(5) { animation-delay: 0.33s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 1100px) { .hero, .game-layout, .calendar-layout, .final-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 760px) {
+      .topbar-inner { flex-direction: column; align-items: flex-start; }
+      .top-actions { width: 100%; justify-content: flex-start; }
+      .setup-grid { grid-template-columns: 1fr; }
+      .player-row { grid-template-columns: 1fr; }
+      .number-grid { grid-template-columns: repeat(4,minmax(0,1fr)); }
+    }
+    @media (max-width: 520px) {
+      .facts { grid-template-columns: 1fr; }
+      .dart-strip { grid-template-columns: 1fr; }
+      .number-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
     }
   </style>
 </head>
@@ -220,6 +265,12 @@
                 <option value="basic">Basic Board</option>
                 <option value="quad">Quad Board</option>
               </select>
+
+              <!-- Randomize Player Order Checkbox Added Here -->
+              <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+                <input type="checkbox" id="randomizePlayersCheckbox" style="cursor:pointer;" />
+                <label for="randomizePlayersCheckbox" style="font-size:0.82rem; font-weight:700; cursor:pointer;">Randomize Order</label>
+              </div>
 
               <label for="playedDate" class="eyebrow" style="font-size:.72rem; margin-top:6px;">Played date</label>
               <input id="playedDate" class="date-input" type="date" />
@@ -429,32 +480,9 @@
       history: 'basketball_darts_history_v1',
       leaderboard: 'basketball_darts_leaderboard_v1'
     };
-
-    const BOARD_TYPES = {
-      BASIC: 'basic',
-      QUAD: 'quad'
-    };
-
-    const SCORING_BASIC = {
-      miss: 0,
-      bull: 6,
-      double: 5,
-      triple: 4,
-      inner_single: 2,
-      outer_single: 3
-    };
-
-    const SCORING_QUAD = {
-      miss: 0,
-      bull: 10,
-      double: 8,
-      quad: 7,
-      triple: 6,
-      inner: 2,
-      middle: 3,
-      outer: 4
-    };
-
+    const BOARD_TYPES = { BASIC: 'basic', QUAD: 'quad' };
+    const SCORING_BASIC = { miss: 0, bull: 6, double: 5, triple: 4, inner_single: 2, outer_single: 3 };
+    const SCORING_QUAD = { miss: 0, bull: 10, double: 8, quad: 7, triple: 6, inner: 2, middle: 3, outer: 4 };
     const MAX_QUARTERS = 4;
     const POSSESSIONS_PER_QUARTER = 6;
     const DARTS_PER_ROUND = 3;
@@ -569,15 +597,21 @@
         return;
       }
 
+      // Randomize player order if checkbox is checked
+      const randomizeCheckbox = $('randomizePlayersCheckbox');
+      if (randomizeCheckbox && randomizeCheckbox.checked) {
+        for (let i = names.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [names[i], names[j]] = [names[j], names[i]];
+        }
+      }
+
       const selectedBoard = $('boardTypeSelect') ? $('boardTypeSelect').value : BOARD_TYPES.BASIC;
-      
       state.activeGame = createNewGame(names, selectedBoard);
       state.finishedGamePending = null;
       state.snapshots = [clone(state.activeGame)];
-
-      // Adjust default selected multiplier based on board type
+      
       state.selectedMultiplier = selectedBoard === BOARD_TYPES.QUAD ? 'outer' : 'outer_single';
-
       saveStorage();
       renderAll();
     }
@@ -593,34 +627,21 @@
 
     function scoringValue(mult) {
       const isQuad = state.activeGame && state.activeGame.boardType === BOARD_TYPES.QUAD;
-
       if (isQuad) {
         return SCORING_QUAD[mult] !== undefined ? SCORING_QUAD[mult] : 0;
       }
-
       if (mult === 'bull') return SCORING_BASIC.bull;
       if (mult === '2' || mult === 'double') return SCORING_BASIC.double;
       if (mult === '3' || mult === 'triple') return SCORING_BASIC.triple;
       if (mult === 'inner_single') return SCORING_BASIC.inner_single;
       if (mult === 'outer_single') return SCORING_BASIC.outer_single;
-
       return SCORING_BASIC.miss;
     }
 
     function multiplierLabel(mult) {
       const labels = {
-        bull: 'Bull',
-        double: 'Double',
-        '2': 'Double',
-        quad: 'Quad',
-        triple: 'Triple',
-        '3': 'Triple',
-        inner: 'Inner',
-        inner_single: 'Inner Single',
-        middle: 'Middle',
-        outer: 'Outer',
-        outer_single: 'Outer Single',
-        miss: 'Miss'
+        bull: 'Bull', double: 'Double', '2': 'Double', quad: 'Quad', triple: 'Triple', '3': 'Triple',
+        inner: 'Inner', inner_single: 'Inner Single', middle: 'Middle', outer: 'Outer', outer_single: 'Outer Single', miss: 'Miss'
       };
       return labels[mult] || 'Miss';
     }
@@ -628,31 +649,22 @@
     function throwDart(mult, isMiss = false) {
       const game = state.activeGame;
       if (!game || game.status !== 'active') return;
-
       snapshot();
-
       const effectiveMult = isMiss ? 'miss' : mult;
       const pts = isMiss ? 0 : scoringValue(effectiveMult);
       const player = getCurrentPlayer();
-
-      const dartObj = {
-        mult: effectiveMult,
-        points: pts,
-        label: multiplierLabel(effectiveMult)
-      };
-
+      const dartObj = { mult: effectiveMult, points: pts, label: multiplierLabel(effectiveMult) };
+      
       game.dartsThisRound.push(dartObj);
       player.totalPoints += pts;
       player.pointsPerQuarter[game.currentQuarter - 1] += pts;
       game.currentDartIndex++;
-
       game.turnLog.unshift(`${player.name} threw ${dartObj.label} (+${pts} pts)`);
 
       if (game.dartsThisRound.length === DARTS_PER_ROUND) {
         const roundPts = game.dartsThisRound.reduce((acc, d) => acc + d.points, 0);
         player.pointsPerRound.push(roundPts);
         player.roundsPlayed++;
-
         game.dartsThisRound = [];
         game.currentDartIndex = 0;
         game.currentPlayerIndex++;
@@ -660,7 +672,6 @@
         if (game.currentPlayerIndex >= game.players.length) {
           game.currentPlayerIndex = 0;
           game.currentPossession++;
-
           if (game.currentPossession > POSSESSIONS_PER_QUARTER) {
             triggerQuarterEnd();
             return;
@@ -669,7 +680,6 @@
           }
         }
       }
-
       saveStorage();
       renderAll();
     }
@@ -677,7 +687,6 @@
     function triggerQuarterEnd() {
       const game = state.activeGame;
       showQuarterModal(game.currentQuarter);
-
       if (game.currentQuarter >= MAX_QUARTERS) {
         finishGame();
       } else {
@@ -692,7 +701,6 @@
     function finishGame() {
       const game = state.activeGame;
       game.status = 'finished';
-
       let maxPts = -1;
       let winners = [];
       game.players.forEach(p => {
@@ -703,7 +711,6 @@
           winners.push(p.name);
         }
       });
-
       game.winner = winners.join(', ');
       state.finishedGamePending = clone(game);
       saveStorage();
@@ -713,7 +720,7 @@
 
     function undo() {
       if (state.snapshots.length <= 1) return;
-      state.snapshots.pop(); // discard current state
+      state.snapshots.pop();
       state.activeGame = clone(state.snapshots[state.snapshots.length - 1]);
       saveStorage();
       renderAll();
@@ -722,9 +729,7 @@
     function renderMultiplierRow() {
       const container = $('multiplierRow');
       if (!container) return;
-
       const isQuad = state.activeGame && state.activeGame.boardType === BOARD_TYPES.QUAD;
-
       if (isQuad) {
         container.innerHTML = `
           <button class="pill-btn ${state.selectedMultiplier === 'bull' ? 'active' : ''}" data-multiplier="bull">Bull</button>
@@ -744,7 +749,6 @@
           <button class="pill-btn ${state.selectedMultiplier === '3' || state.selectedMultiplier === 'triple' ? 'active' : ''}" data-multiplier="3">Triple</button>
         `;
       }
-
       container.querySelectorAll('.pill-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           state.selectedMultiplier = btn.dataset.multiplier;
@@ -758,7 +762,6 @@
     function renderScoreboard() {
       const body = $('scoreboardBody');
       if (!body) return;
-
       const game = state.activeGame;
       if (!game) {
         body.innerHTML = `<tr><td colspan="4" class="empty">No active game. Add players and start a live game.</td></tr>`;
@@ -767,11 +770,9 @@
         $('roundBadge').textContent = 'Round 1';
         return;
       }
-
       $('quarterBadge').textContent = `Q${game.currentQuarter}`;
       $('possessionBadge').textContent = `Possession ${game.currentPossession}`;
       $('roundBadge').textContent = `Round ${game.currentRound}`;
-
       body.innerHTML = game.players.map((p, idx) => {
         const isActive = idx === game.currentPlayerIndex && game.status === 'active';
         const pointsThisRound = isActive ? game.dartsThisRound.reduce((a, b) => a + b.points, 0) : 0;
@@ -798,17 +799,14 @@
         $('dartDisplay3').textContent = '—';
         return;
       }
-
       const player = getCurrentPlayer();
       $('currentPlayerName').textContent = player.name;
       $('currentPlayerSub').textContent = `Quarter ${game.currentQuarter} • Possession ${game.currentPossession}`;
       $('selectedMultiplierTag').textContent = `Selected: ${multiplierLabel(state.selectedMultiplier)}`;
       $('dartsLeftTag').textContent = `Darts Left: ${DARTS_PER_ROUND - game.dartsThisRound.length}`;
-
       $('dartDisplay1').textContent = game.dartsThisRound[0] ? `${game.dartsThisRound[0].label} (${game.dartsThisRound[0].points})` : '—';
       $('dartDisplay2').textContent = game.dartsThisRound[1] ? `${game.dartsThisRound[1].label} (${game.dartsThisRound[1].points})` : '—';
       $('dartDisplay3').textContent = game.dartsThisRound[2] ? `${game.dartsThisRound[2].label} (${game.dartsThisRound[2].points})` : '—';
-
       renderMultiplierRow();
     }
 
@@ -816,13 +814,11 @@
       const container = $('turnLog');
       const summary = $('logSummary');
       const game = state.activeGame;
-
       if (!game || !game.turnLog || game.turnLog.length === 0) {
         summary.textContent = 'No darts thrown yet.';
         container.innerHTML = '';
         return;
       }
-
       summary.textContent = `${game.turnLog.length} throw(s) recorded`;
       container.innerHTML = game.turnLog.slice(0, 10).map(log => `
         <div class="log-item">
@@ -834,17 +830,14 @@
     function renderHistory() {
       const list = $('historyList');
       if (!list) return;
-
       const filtered = state.history.filter(g => {
         if (!state.historyFilter) return true;
         return g.date === state.historyFilter;
       });
-
       if (filtered.length === 0) {
         list.innerHTML = `<div class="empty">No played games found.</div>`;
         return;
       }
-
       list.innerHTML = filtered.map(g => {
         const boardTag = g.boardType === 'quad' ? 'Quad Board' : 'Basic Board';
         return `
@@ -863,23 +856,18 @@
 
     function updateLeaderboardData(game) {
       if (!game || !game.players) return;
-
       let maxPts = -1;
       game.players.forEach(p => { if (p.totalPoints > maxPts) maxPts = p.totalPoints; });
-
       game.players.forEach(p => {
         if (!state.leaderboard[p.name]) {
           state.leaderboard[p.name] = { wins: 0, losses: 0, points: 0, quarters: 0, elo: 1200 };
         }
         const stats = state.leaderboard[p.name];
         const isWinner = p.totalPoints === maxPts;
-
         if (isWinner) stats.wins += 1;
         else stats.losses += 1;
-
         stats.points += p.totalPoints;
         stats.quarters += MAX_QUARTERS;
-
         if (isWinner) stats.elo += 16;
         else stats.elo = Math.max(800, stats.elo - 12);
       });
@@ -889,7 +877,6 @@
       const body = $('leaderboardBody');
       const modalBody = $('leaderboardModalBody');
       if (!body) return;
-
       const players = Object.keys(state.leaderboard).map(name => {
         const st = state.leaderboard[name];
         const total = st.wins + st.losses;
@@ -905,7 +892,6 @@
         if (modalBody) modalBody.innerHTML = emptyRow;
         return;
       }
-
       const rowsHtml = players.map((p, i) => `
         <tr>
           <td class="rank">#${i + 1}</td>
@@ -918,7 +904,6 @@
           <td>${p.ppq}</td>
         </tr>
       `).join('');
-
       body.innerHTML = rowsHtml;
       if (modalBody) modalBody.innerHTML = rowsHtml;
     }
@@ -927,7 +912,6 @@
       const modal = $('quarterModal');
       const content = $('quarterMVPContent');
       const game = state.activeGame;
-
       let mvp = null;
       let maxPts = -1;
       game.players.forEach(p => {
@@ -937,7 +921,6 @@
           mvp = p;
         }
       });
-
       content.innerHTML = `
         <div class="final-box" style="text-align:center;">
           <p class="eyebrow">Quarter ${qNum} MVP</p>
@@ -945,7 +928,6 @@
           <p style="font-size:1.4rem; font-weight:800; margin-top:8px;">${maxPts} Points Scored</p>
         </div>
       `;
-
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
     }
@@ -954,11 +936,8 @@
       const modal = $('finalModal');
       const content = $('finalContent');
       const game = state.finishedGamePending || state.activeGame;
-
       if (!game) return;
-
       const sorted = [...game.players].sort((a, b) => b.totalPoints - a.totalPoints);
-
       content.innerHTML = `
         <div class="final-grid">
           <div class="final-box">
@@ -977,7 +956,6 @@
           </div>
         </div>
       `;
-
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
     }
@@ -990,7 +968,6 @@
       renderLeaderboard();
     }
 
-    // Event Listeners setup
     window.addEventListener('DOMContentLoaded', () => {
       loadStorage();
       initPlayerInputs();
@@ -1001,7 +978,6 @@
       $('newGameBtn').addEventListener('click', () => { if (confirm('Start new game?')) startGame(); });
       $('newGameBtnTop').addEventListener('click', () => { if (confirm('Start new game?')) startGame(); });
       $('todayBtn').addEventListener('click', () => { $('playedDate').value = todayStr(); });
-
       $('missBtn').addEventListener('click', () => throwDart('miss', true));
       $('undoBtn').addEventListener('click', undo);
 
@@ -1019,7 +995,6 @@
         $('quarterModal').classList.remove('open');
         $('quarterModal').setAttribute('aria-hidden', 'true');
       });
-
       $('closeFinalModal').addEventListener('click', () => {
         $('finalModal').classList.remove('open');
         $('finalModal').setAttribute('aria-hidden', 'true');
@@ -1045,16 +1020,10 @@
         $('finalModal').classList.remove('open');
       });
 
-      $('leaderboardBtn').addEventListener('click', () => {
-        $('leaderboardModal').classList.add('open');
-      });
-      $('closeLeaderboardModal').addEventListener('click', () => {
-        $('leaderboardModal').classList.remove('open');
-      });
+      $('leaderboardBtn').addEventListener('click', () => { $('leaderboardModal').classList.add('open'); });
+      $('closeLeaderboardModal').addEventListener('click', () => { $('leaderboardModal').classList.remove('open'); });
 
-      // Trigger initial animations
       document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-
       renderAll();
     });
   </script>
